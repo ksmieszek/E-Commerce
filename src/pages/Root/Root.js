@@ -1,15 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "sass/index.scss";
-import Navigation from "components/navigation/Navigation";
+import Home from "pages/Home/Home";
 
 const Root = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <Navigation />
-        </Route>
+        <Route exact path="/" component={Home} />
       </Switch>
     </Router>
   );
