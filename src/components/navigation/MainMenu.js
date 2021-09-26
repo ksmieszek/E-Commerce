@@ -1,281 +1,98 @@
 import { useEffect, useRef } from "react";
-import MobileElements from "./MobileElements";
 import { Link } from "react-router-dom";
+import menuLinks from "assets/data/menuLinks";
+import MobileElements from "./MobileElements";
 
 const MainMenu = () => {
   const menuRef = useRef(null);
   const overlayRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  const disableScroll = () => {
+  useEffect(() => {
+    const menuRefCopy = menuRef.current;
+    menuRefCopy.addEventListener("click", handleClick);
+    return () => menuRefCopy.removeEventListener("click", handleClick);
+  }, []);
+
+  function handleClick(e) {
+    e.stopPropagation();
+    if (e.target === hamburgerRef.current) showMenu();
+    if (e.target === overlayRef.current) hideMenu();
+    if (e.target.classList.contains("header__close")) hideMenu();
+    if (e.target.classList.contains("header__back")) {
+      const parentWrapper = e.target.closest(".open");
+      if (parentWrapper === menuRef.current) {
+        hideMenu();
+        return;
+      }
+      parentWrapper.classList.remove("open");
+    }
+    if (e.target.classList.contains("submenus__item") || e.target.classList.contains("categories__item")) e.target.classList.add("open");
+  }
+
+  const showMenu = () => {
     document.body.style.maxHeight = "100%";
     document.body.style.overflow = "hidden";
     overlayRef.current.classList.add("show");
+    menuRef.current.classList.add("open");
   };
 
-  const allowScroll = () => {
+  const hideMenu = () => {
     document.body.style.maxHeight = "unset";
     document.body.style.overflow = "unset";
     overlayRef.current.classList.remove("show");
+    menuRef.current.classList.remove("open");
   };
 
-  useEffect(() => {
-    overlayRef.current.addEventListener("click", (e) => {
-      e.stopPropagation();
-      menuRef.current.classList.remove("open");
-      allowScroll();
-    });
-
-    hamburgerRef.current.addEventListener("click", (e) => {
-      e.stopPropagation();
-      menuRef.current.classList.add("open");
-      disableScroll();
-    });
-
-    menuRef.current.querySelectorAll(".header__back").forEach((item) => {
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const parentWrapper = e.target.closest(".open");
-        if (parentWrapper === menuRef.current) allowScroll();
-        parentWrapper.classList.remove("open");
-      });
-    });
-
-    menuRef.current.querySelectorAll(".header__close").forEach((item) => {
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-        menuRef.current.classList.remove("open");
-        allowScroll();
-      });
-    });
-
-    menuRef.current.querySelectorAll(".submenus__item").forEach((item) =>
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-        e.currentTarget.classList.add("open");
-      })
-    );
-
-    menuRef.current.querySelectorAll(".categories__item").forEach((item) => {
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-        e.currentTarget.classList.add("open");
-      });
-    });
-  });
-
   return (
-    <nav className="menu">
+    <div className="menu" ref={menuRef}>
       <div className="menu__overlay" ref={overlayRef}></div>
       <div className="menu__hamburger" ref={hamburgerRef}>
         <div></div>
       </div>
-      <div className="menu__container" ref={menuRef}>
-        <MobileElements>Wybierz kategorię</MobileElements>
+      <div className="menu__container">
+        <MobileElements>Choose category</MobileElements>
         <ul className="submenus">
-          <li className="submenus__item">
-            <Link to="/">Mężczyźni</Link>
-            <div className="categories">
-              <MobileElements>Męskie</MobileElements>
-              <ul className="categories__list">
-                <li className="categories__item">
-                  <Link to="/">Koszulki</Link>
-                  <div className="links">
-                    <MobileElements>Koszulki</MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">T-shirty</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Koszulki polo</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li className="categories__item">
-                  <Link to="/">Koszule</Link>
-                  <div className="links">
-                    <MobileElements>Koszule</MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Koszule z krótkim rękawem</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Koszule z długim rękawem</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li className="categories__item">
-                  <Link to="/">Spodnie</Link>
-                  <div className="links">
-                    <MobileElements>
-                      <Link to="/">Spodnie</Link>
-                    </MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Jeansy</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Spodnie dresowe</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Szorty</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li className="submenus__item">
-            <Link to="/">Kobiety</Link>
-            <div className="categories">
-              <MobileElements>Damskie</MobileElements>
-              <ul className="categories__list">
-                <li className="categories__item">
-                  <Link to="/">Koszulki</Link>
-                  <div className="links">
-                    <MobileElements>Koszulki</MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">T-shirty</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Koszulki polo</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li className="categories__item">
-                  <Link to="/">Koszule</Link>
-                  <div className="links">
-                    <MobileElements>Koszule</MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Koszule z krótkim rękawem</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Koszule z długim rękawem</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li className="categories__item">
-                  <Link to="/">Spodnie</Link>
-                  <div className="links">
-                    <MobileElements>
-                      <Link to="/">Spodnie</Link>
-                    </MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Jeansy</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Spodnie dresowe</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Szorty</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-
-                <li className="categories__item">
-                  <Link to="/">Spodnie</Link>
-                  <div className="links">
-                    <MobileElements>
-                      <Link to="/">Spodnie</Link>
-                    </MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Jeansy</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Spodnie dresowe</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Szorty</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-
-                <li className="categories__item">
-                  <Link to="/">Spodnie</Link>
-                  <div className="links">
-                    <MobileElements>
-                      <Link to="/">Spodnie</Link>
-                    </MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Jeansy</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Spodnie dresowe</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Szorty</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-
-                <li className="categories__item">
-                  <Link to="/">Spodnie</Link>
-                  <div className="links">
-                    <MobileElements>
-                      <Link to="/">Spodnie</Link>
-                    </MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Jeansy</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Spodnie dresowe</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Szorty</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-
-                <li className="categories__item">
-                  <Link to="/">Spodnie</Link>
-                  <div className="links">
-                    <MobileElements>
-                      <Link to="/">Spodnie</Link>
-                    </MobileElements>
-                    <ul className="links__list">
-                      <li className="links__item">
-                        <Link to="/">Jeansy</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Spodnie dresowe</Link>
-                      </li>
-                      <li className="links__item">
-                        <Link to="/">Szorty</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-
-          <li className="submenus__item last">
-            <Link to="/">Akcesoria</Link>
-          </li>
-          <li className="submenus__item last">
-            <Link to="/">Nowości</Link>
-          </li>
-          <li className="submenus__item last">
-            <Link to="/">Promocje</Link>
-          </li>
+          {menuLinks.map((submenu, index) =>
+            submenu.categories?.length > 0 ? (
+              <li className="submenus__item" key={index}>
+                <Link to={submenu.link}>{submenu.title}</Link>
+                <div className="categories">
+                  <MobileElements link={submenu.link}>{submenu.title}</MobileElements>
+                  <ul className="categories__list">
+                    {submenu.categories.map((cat, index) =>
+                      cat.podcategories?.length > 0 ? (
+                        <li className="categories__item" key={index}>
+                          <Link to={cat.link}>{cat.title}</Link>
+                          <div className="links">
+                            <MobileElements link={cat.link}>{cat.title}</MobileElements>
+                            <ul className="links__list">
+                              {cat.podcategories.map((podCat, index) => (
+                                <li className="links__item" key={index}>
+                                  <Link to={podCat.link}>{podCat.title}</Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </li>
+                      ) : (
+                        <li className="categories__item--last" key={index}>
+                          <Link to={cat.link}>{cat.title}</Link>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
+              </li>
+            ) : (
+              <li className="submenus__item--last" key={index}>
+                <Link to={submenu.link}>{submenu.title}</Link>
+              </li>
+            )
+          )}
         </ul>
       </div>
-    </nav>
+    </div>
   );
 };
 
