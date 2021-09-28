@@ -5,6 +5,7 @@ import products from "assets/data/products";
 import "./Products.scss";
 import MainTemplate from "templates/MainTemplate";
 import ProductsList from "components/productsList/ProductsList";
+import ProductsForm from "components/productsForm/ProductsForm";
 
 const Products = () => {
   let location = useLocation();
@@ -89,7 +90,10 @@ const Products = () => {
 
   return (
     <MainTemplate>
-      <ProductsList>{filteredProducts}</ProductsList>
+      <div className="productsPage">
+        <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
+        <ProductsList>{filteredProducts}</ProductsList>
+      </div>
     </MainTemplate>
   );
 };
