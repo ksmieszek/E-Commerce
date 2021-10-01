@@ -1,9 +1,9 @@
-import Navigation from "components/navigation/Navigation";
+import Overlay from "components/overlay/Overlay";
 
 const MainTemplate = ({ children }) => {
   return (
     <>
-      <Navigation />
+      <Overlay />
       {children}
     </>
   );

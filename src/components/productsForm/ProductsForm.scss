@@ -16,24 +16,6 @@
       overflow-y: auto;
       z-index: 999;
     }
-
-    .overlay {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.1s linear;
   }
 
   .openers {
@@ -96,7 +78,7 @@
   }
 
   .filter {
-    border-top: 1px solid #eaeaea;
+    border-top: 1px solid $light-gray;
 
     &__name {
       position: relative;
@@ -224,6 +206,12 @@
   @media only screen and (min-width: 1440px) {
     margin-right: 50px;
     width: auto;
+
+    &.open {
+      .wrapper {
+        transform: translateX(0);
+      }
+    }
 
     .filter__opener {
       display: none;

@@ -38,6 +38,7 @@
       display: flex;
       justify-content: space-between;
       background-color: #fff;
+      z-index: 999;
     }
 
     .logo,
@@ -72,12 +73,11 @@
     width: 100px;
     height: 50px;
     margin-left: 10px;
-    display: block;
-    background-image: url("/assets/icons/logo.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100%;
-    background-color: #fff;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .userMenu {
@@ -107,6 +107,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 300;
 
     &:hover input {
       border-color: $blue-color;
@@ -162,7 +163,6 @@
       font-size: 1.4rem;
       box-shadow: 0 2px 7px -2px #555;
       background-color: #fff;
-      z-index: 999;
       visibility: hidden;
       opacity: 0;
       transform: scale3d(1, 0, 1);
@@ -188,7 +188,7 @@
       }
 
       li {
-        border-bottom: 1px solid #eaeaea;
+        border-bottom: 1px solid $light-gray;
 
         &.shortcut {
           margin-left: 5px;
@@ -232,25 +232,6 @@
     align-self: center;
     width: fit-content;
     margin-right: 10px;
-    z-index: 999;
-
-    &__overlay {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.1s linear;
-
-      &.show {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
 
     &__hamburger {
       position: relative;
@@ -292,7 +273,7 @@
 
       .header {
         padding: 16px 18px;
-        border-bottom: 1px solid #eaeaea;
+        border-bottom: 1px solid $light-gray;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -310,33 +291,6 @@
           padding: 0;
           font-size: 1.8rem;
           font-weight: 600;
-        }
-
-        &__close {
-          position: relative;
-          width: 26px;
-          height: 26px;
-          cursor: pointer;
-
-          &::before,
-          &::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 15px;
-            height: 2px;
-            border-radius: 10px;
-            background-color: black;
-          }
-
-          &::before {
-            transform: translate(-50%) rotate(45deg);
-          }
-
-          &::after {
-            transform: translate(-50%) rotate(-45deg);
-          }
         }
       }
     }
@@ -482,10 +436,6 @@
       width: 100%;
       margin: 0;
       z-index: 200;
-
-      &__overlay {
-        display: none;
-      }
 
       &__hamburger {
         display: none;

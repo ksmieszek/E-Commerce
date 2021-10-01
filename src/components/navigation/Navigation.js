@@ -10,36 +10,35 @@ const Navigation = () => {
   const navbarRef = useRef(null);
   let lastScrollPosition = window.scrollY;
   let defaultNavHeight = useRef(null);
-
-  const handleScroll = () => {
-    if (window.scrollY > defaultNavHeight.current + 100) {
-      if (lastScrollPosition > window.scrollY) navbarRef.current.classList.add("showNavbar");
-      else if (lastScrollPosition < window.scrollY) navbarRef.current.classList.remove("showNavbar");
-    } else {
-      navbarRef.current.classList.remove("showNavbar");
-    }
-    lastScrollPosition = window.scrollY;
-  };
+  const debouncedScrollListener = debounce(handleScroll, 100, {
+    leading: true,
+  });
 
   useEffect(() => {
     defaultNavHeight.current = navbarRef.current.getBoundingClientRect().height;
-
-    window.addEventListener(
-      "scroll",
-      debounce(handleScroll, 100, {
-        leading: true,
-      })
-    );
+    window.addEventListener("scroll", debouncedScrollListener);
+    return () => window.removeEventListener("scroll", debouncedScrollListener);
   }, []);
+
+  function handleScroll() {
+    if (navbarRef.current !== null)
+      if (window.scrollY > defaultNavHeight.current + 100) {
+        if (lastScrollPosition > window.scrollY) navbarRef.current.classList.add("showNavbar");
+        else if (lastScrollPosition < window.scrollY) navbarRef.current.classList.remove("showNavbar");
+      } else {
+        navbarRef.current.classList.remove("showNavbar");
+      }
+    lastScrollPosition = window.scrollY;
+  }
 
   return (
     <div className="navbar" ref={navbarRef}>
-      <div className="navbar__inner">
+      <nav className="navbar__inner">
         <Logo />
         <UserMenu />
         <Search />
         <MainMenu />
-      </div>
+      </nav>
     </div>
   );
 };

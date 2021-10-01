@@ -2,15 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 import "./ProductsForm.scss";
 import CloseButton from "components/closeButton/CloseButton";
+import { useComponentPresenceContext } from "providers/ComponentPresenceProvider";
 
 const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   let history = useHistory();
-  const formRef = useRef(null);
   const [podcategories, setPodcategories] = useState([]);
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
-  const wrapperRef = useRef(null);
-  const overlayRef = useRef(null);
+  const formRef = useRef(null);
+  const { isSidebarVisible, makeSidebarVisible, makeSidebarInvisible } = useComponentPresenceContext();
 
   //get data to generate form
   useEffect(() => {
@@ -75,22 +75,8 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
       return;
     }
     updateURL(activeCheckboxes, priceRange);
-    hideMenu();
+    makeSidebarInvisible();
   }
-
-  const showMenu = () => {
-    document.body.style.maxHeight = "100%";
-    document.body.style.overflow = "hidden";
-    overlayRef.current.classList.add("show");
-    wrapperRef.current.classList.add("open");
-  };
-
-  const hideMenu = () => {
-    document.body.style.maxHeight = "unset";
-    document.body.style.overflow = "unset";
-    overlayRef.current.classList.remove("show");
-    wrapperRef.current.classList.remove("open");
-  };
 
   function handleUnfold(e) {
     e.currentTarget.classList.toggle("unfold");
@@ -120,10 +106,9 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   }
 
   return (
-    <aside className="products__form" ref={wrapperRef}>
-      <div className="overlay" ref={overlayRef} onClick={(e) => hideMenu(e)}></div>
+    <aside className={`products__form ${isSidebarVisible ? `open` : ``}`}>
       <div className="openers">
-        <button className="filter__opener" onClick={() => showMenu()}>
+        <button className="filter__opener" onClick={() => makeSidebarVisible()}>
           FILTERS
         </button>
         {/* <button>sort</button> */}
@@ -131,7 +116,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
       <div className="wrapper">
         <div className="header">
           <div className="header__title">Filters</div>
-          <CloseButton onClick={() => hideMenu()} />
+          <CloseButton onClick={() => makeSidebarInvisible()} />
         </div>
 
         <form onSubmit={handleFormSubmit} ref={formRef} className="filters">

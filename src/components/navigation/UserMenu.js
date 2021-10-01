@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import heartIcon from "assets/icons/heart.svg";
 import userIcon from "assets/icons/user.svg";
 import cartIcon from "assets/icons/shopping-bag.svg";
-import { Link } from "react-router-dom";
 
 const UserMenu = () => (
   <div className="userMenu">
