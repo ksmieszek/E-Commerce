@@ -1,5 +1,5 @@
 import { useOverlayContext } from "providers/OverlayProvider";
-import "./Overlay.scss";
+import styles from "./Overlay.module.scss";
 
 const Overlay = () => {
   const { isOverlayVisible, makeOverlayInvisible } = useOverlayContext();
@@ -12,7 +12,7 @@ const Overlay = () => {
     document.body.style.overflowY = "unset";
   }
 
-  return <div className={`overlay ${isOverlayVisible ? `show` : ``}`} onClick={() => makeOverlayInvisible()}></div>;
+  return <div className={`${styles.overlay} ${isOverlayVisible ? styles.show : ""}`} onClick={() => makeOverlayInvisible()}></div>;
 };
 
 export default Overlay;

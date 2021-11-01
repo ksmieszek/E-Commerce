@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNonInitialEffect } from "hooks/useNonInitialEffect";
 import { useLocation } from "react-router";
 import products from "assets/data/products";
-import "./Products.scss";
+import styles from "./Products.module.scss";
 import StoreTemplate from "templates/StoreTemplate";
 import ProductsList from "components/productsList/ProductsList";
 import ProductsForm from "components/productsForm/ProductsForm";
@@ -90,7 +90,7 @@ const Products = () => {
 
   return (
     <StoreTemplate>
-      <div className="productsPage">
+      <div className={styles.productsPage}>
         <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
         <ProductsList>{filteredProducts}</ProductsList>
       </div>

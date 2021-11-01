@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import debounce from "lodash.debounce";
-import "./Navigation.scss";
+import styles from "./Navigation.module.scss";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
@@ -23,17 +23,17 @@ const Navigation = () => {
   function handleScroll() {
     if (navbarRef.current !== null)
       if (window.scrollY > defaultNavHeight.current + 100) {
-        if (lastScrollPosition > window.scrollY) navbarRef.current.classList.add("showNavbar");
-        else if (lastScrollPosition < window.scrollY) navbarRef.current.classList.remove("showNavbar");
+        if (lastScrollPosition > window.scrollY) navbarRef.current.classList.add(styles.showNavbar);
+        else if (lastScrollPosition < window.scrollY) navbarRef.current.classList.remove(styles.showNavbar);
       } else {
-        navbarRef.current.classList.remove("showNavbar");
+        navbarRef.current.classList.remove(styles.showNavbar);
       }
     lastScrollPosition = window.scrollY;
   }
 
   return (
-    <div className="navbar" ref={navbarRef}>
-      <nav className="navbar__inner">
+    <div className={styles.navbar} ref={navbarRef}>
+      <nav className={styles.navbar__inner}>
         <Logo />
         <UserMenu />
         <Search />

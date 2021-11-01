@@ -1,4 +1,4 @@
-@import "sass/variables";
+@use "sass/abstracts" as *;
 
 .products__form {
   width: 100%;

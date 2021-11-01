@@ -1,4 +1,4 @@
-@import "sass/variables";
+@use "sass/abstracts" as *;
 
 @mixin menu-wrapper {
   position: fixed;
@@ -50,7 +50,7 @@
       order: 2;
     }
 
-    .menu {
+    .mainMenu {
       order: 1;
     }
   }
@@ -81,6 +81,7 @@
   }
 
   .userMenu {
+    position: relative;
     grid-area: topright;
     justify-self: end;
     margin-right: 10px;
@@ -91,6 +92,7 @@
       width: 42px;
       height: 42px;
       padding: 10px 10px;
+      cursor: pointer;
 
       &:hover {
         background-color: #f7f7f7;
@@ -117,7 +119,7 @@
       max-width: 200px;
       padding: 6px 10px;
       padding-right: 50px;
-      border: 1px solid #6b6b6b;
+      border: 1px solid $light-gray;
       border-radius: 50px;
       outline: none;
       font-size: 1.4rem;
@@ -226,7 +228,7 @@
     }
   }
 
-  .menu {
+  .mainMenu {
     grid-area: bottomright;
     justify-self: end;
     align-self: center;
@@ -296,8 +298,8 @@
     }
   }
 
-  .menu.open {
-    .menu__container,
+  .mainMenu.open {
+    .mainMenu__container,
     .submenus__item.open .categories,
     .categories__item.open .links {
       transform: translateX(-100%);
@@ -375,7 +377,7 @@
         grid-template-rows: auto;
         grid-template-areas: "left . right";
 
-        .menu {
+        .mainMenu {
           grid-area: left;
           justify-self: end;
 
@@ -430,7 +432,7 @@
       }
     }
 
-    .menu {
+    .mainMenu {
       grid-area: bottom;
       justify-self: center;
       width: 100%;
@@ -452,8 +454,8 @@
       }
     }
 
-    .menu.open {
-      .menu__container,
+    .mainMenu.open {
+      .mainMenu__container,
       .submenus__item.open .categories,
       .categories__item.open .links {
         transform: translateX(0);

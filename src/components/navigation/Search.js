@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { searchResults, searchPodcategories } from "assets/data/searchResults";
 import { ReactComponent as Glass } from "assets/icons/magnifying-glass.svg";
+import styles from "./Navigation.module.scss";
 
 const Search = () => {
   const inputRef = useRef(null);
@@ -37,7 +38,7 @@ const Search = () => {
       <li key={index}>
         <Link to={`/products${item.route}`}>
           {highlightMatchingString(matches.category.categoryName)}
-          <span className="category">{item.name}</span>
+          <span className={styles.category}>{item.name}</span>
         </Link>
       </li>
     ));
@@ -62,7 +63,7 @@ const Search = () => {
     return startIndex !== -1 ? (
       <>
         <span>{string.substring(0, startIndex)}</span>
-        <span className="bold">{string.substring(startIndex, endIndex)}</span>
+        <span className={styles.bold}>{string.substring(startIndex, endIndex)}</span>
         <span>{string.substring(endIndex, string.length)}</span>
       </>
     ) : (
@@ -71,23 +72,23 @@ const Search = () => {
   }
 
   return (
-    <form className="search">
+    <form className={styles.search}>
       <input type="text" placeholder="Search" ref={inputRef} />
       <button type="submit" onClick={(e) => e.preventDefault()}>
         <Glass />
       </button>
-      <div className="search__results">
+      <div className={styles.search__results}>
         {categoriesResults.length === 0 && suggestionsResults.length === 0 ? (
           <>
-            <div className="header">Shortcuts</div>
+            <div className={styles.header}>Shortcuts</div>
             <ul>
-              <li className="shortcut">
+              <li className={styles.shortcut}>
                 <Link to="">Shipping</Link>
               </li>
-              <li className="shortcut">
+              <li className={styles.shortcut}>
                 <Link to="">Returns & Refunds</Link>
               </li>
-              <li className="shortcut">
+              <li className={styles.shortcut}>
                 <Link to="">FAQs</Link>
               </li>
             </ul>
@@ -96,7 +97,7 @@ const Search = () => {
           <>
             {categoriesResults.length > 0 && inputRef.current.value.length >= 4 && (
               <>
-                <div className="header">Search results in categories</div>
+                <div className={styles.header}>Search results in categories</div>
                 {categoriesResults.map((category, index) => (
                   <ul key={index}>{displayMainResults(category)}</ul>
                 ))}
@@ -104,7 +105,7 @@ const Search = () => {
             )}
             {
               <>
-                <div className="header">Suggestions</div>
+                <div className={styles.header}>Suggestions</div>
                 <ul>{displayAllResults()}</ul>
               </>
             }

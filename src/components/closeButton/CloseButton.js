@@ -1,5 +1,5 @@
-import "./CloseButton.scss";
+import styles from "./CloseButton.module.scss";
 
-const CloseButton = ({ ...rest }) => <button className="closeButton" {...rest}></button>;
+const CloseButton = ({ hideOnWide, ...rest }) => <button className={`${styles.closeButton} ${hideOnWide ? styles.hide : ""}`} {...rest}></button>;
 
 export default CloseButton;

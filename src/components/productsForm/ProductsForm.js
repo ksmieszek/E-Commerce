@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
-import "./ProductsForm.scss";
+import styles from "./ProductsForm.module.scss";
 import CloseButton from "components/closeButton/CloseButton";
 import { useComponentPresenceContext } from "providers/ComponentPresenceProvider";
 
@@ -84,19 +84,19 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
 
   function generateCheckboxes(name, array, type, displayQuantity) {
     return (
-      <div className="filter">
-        <div className="filter__name" onClick={(e) => handleUnfold(e)}>
+      <div className={styles.filter}>
+        <div className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
           {name}
         </div>
-        <div className="filter__options">
+        <div className={styles.filter__options}>
           {array.map((item, index) => (
-            <div key={index} className="category">
-              <label className="category__name">
+            <div key={index} className={styles.category}>
+              <label className={styles.category__name}>
                 <span>
                   {item[0]}
-                  {displayQuantity && <sup className="category__quantity">({item[1]})</sup>}
+                  {displayQuantity && <sup className={styles.category__quantity}>({item[1]})</sup>}
                 </span>
-                <input type="checkbox" data-category={type} data-query={item[0]} className="category__checkmark" />
+                <input type="checkbox" data-category={type} data-query={item[0]} className={styles.category__checkmark} />
               </label>
             </div>
           ))}
@@ -106,29 +106,29 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   }
 
   return (
-    <aside className={`products__form ${isSidebarVisible ? `open` : ``}`}>
-      <div className="openers">
-        <button className="filter__opener" onClick={() => makeSidebarVisible()}>
+    <aside className={`${styles.products__form} ${isSidebarVisible ? styles.open : ""}`}>
+      <div className={styles.openers}>
+        <button className={styles.filter__opener} onClick={() => makeSidebarVisible()}>
           FILTERS
         </button>
         {/* <button>sort</button> */}
       </div>
-      <div className="wrapper">
-        <div className="header">
-          <div className="header__title">Filters</div>
-          <CloseButton onClick={() => makeSidebarInvisible()} />
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <div className={styles.header__title}>Filters</div>
+          <CloseButton onClick={() => makeSidebarInvisible()} hideOnWide />
         </div>
 
-        <form onSubmit={handleFormSubmit} ref={formRef} className="filters">
-          <div className="filters__list">
-            <div className="filter">
-              <div className="filter__name" onClick={(e) => handleUnfold(e)}>
+        <form onSubmit={handleFormSubmit} ref={formRef} className={styles.filters}>
+          <div className={styles.filters__list}>
+            <div className={styles.filter}>
+              <div className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
                 Price
               </div>
-              <div className="filter__options filter__options--price">
-                <input className="price" type="text" data-category="price-from" placeholder="from" />
+              <div className={`${styles.filter__options} ${styles[`filter__options--price`]}`}>
+                <input className={styles.price} type="text" data-category="price-from" placeholder="from" />
                 -
-                <input className="price" type="text" data-category="price-to" placeholder="to" />
+                <input className={styles.price} type="text" data-category="price-to" placeholder="to" />
               </div>
             </div>
             {podcategories.length > 0 && <>{generateCheckboxes("Podcategories", podcategories, "type", true)}</>}
@@ -136,7 +136,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
             {colors.length > 0 && <>{generateCheckboxes("Colors", colors, "color")}</>}
           </div>
 
-          <input type="submit" className="filters__button" value="Filter" />
+          <input type="submit" className={styles.filters__button} value="Filter" />
         </form>
       </div>
     </aside>

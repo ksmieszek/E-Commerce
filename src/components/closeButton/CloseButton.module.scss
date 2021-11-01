@@ -1,9 +1,11 @@
+@use "sass/abstracts" as *;
+
 .closeButton {
   position: relative;
   width: 26px;
   height: 26px;
-  border: none;
   outline: none;
+  border: none;
   background-color: transparent;
   cursor: pointer;
 
@@ -13,9 +15,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    border-radius: 10px;
     width: 15px;
     height: 2px;
-    border-radius: 10px;
     background-color: black;
   }
 
@@ -25,5 +27,11 @@
 
   &::after {
     transform: translate(-50%) rotate(-45deg);
+  }
+
+  @media only screen and (min-width: 1440px) {
+    &.hide {
+      display: none;
+    }
   }
 }

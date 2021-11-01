@@ -1,5 +1,5 @@
 import React from "react";
-import "./Home.scss";
+import styles from "./Home.module.scss";
 import Navigation from "components/navigation/Navigation";
 import Splide from "components/splide/Splide";
 
@@ -19,8 +19,8 @@ const Home = () => {
   };
 
   return (
-    <div className="home">
-      <div className="hero">
+    <div className={styles.home}>
+      <div className={styles.hero}>
         <Navigation />
         <Splide options={splideOptions}>
           <li className="splide__slide">

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import menuLinks from "assets/data/menuLinks";
 import MobileElements from "./MobileElements";
+import styles from "./Navigation.module.scss";
 import { useComponentPresenceContext } from "providers/ComponentPresenceProvider";
 
 const MainMenu = () => {
@@ -19,41 +20,42 @@ const MainMenu = () => {
     e.stopPropagation();
     if (e.target === hamburgerRef.current) makeNavVisible();
     if (e.target.dataset.headerClose) makeNavInvisible();
-    if (e.target.classList.contains("header__back")) {
-      const parentWrapper = e.target.closest(".open");
+    if (e.target.classList.contains(styles.header__back)) {
+      const parentWrapper = e.target.closest(`.${styles.open}`);
       if (parentWrapper === menuRef.current) {
         makeNavInvisible();
         return;
       }
-      parentWrapper.classList.remove("open");
+      parentWrapper.classList.remove(styles.open);
     }
-    if (e.target.classList.contains("submenus__item") || e.target.classList.contains("categories__item")) e.target.classList.add("open");
+    if (e.target.classList.contains(styles.submenus__item) || e.target.classList.contains(styles.categories__item))
+      e.target.classList.add(styles.open);
   }
 
   return (
-    <div className={`menu ${isNavVisible ? `open` : ``}`} ref={menuRef}>
-      <div className="menu__hamburger" ref={hamburgerRef}>
+    <div className={`${styles.mainMenu} ${isNavVisible ? styles.open : ``}`} ref={menuRef}>
+      <div className={styles.mainMenu__hamburger} ref={hamburgerRef}>
         <div></div>
       </div>
-      <div className="menu__container">
+      <div className={styles.mainMenu__container}>
         <MobileElements>Choose category</MobileElements>
-        <ul className="submenus">
+        <ul className={styles.submenus}>
           {menuLinks.map((submenu, index) =>
             submenu.categories?.length > 0 ? (
-              <li className="submenus__item" key={index}>
+              <li className={styles.submenus__item} key={index}>
                 <Link to={submenu.link}>{submenu.title}</Link>
-                <div className="categories">
+                <div className={styles.categories}>
                   <MobileElements link={submenu.link}>{submenu.title}</MobileElements>
-                  <ul className="categories__list">
+                  <ul className={styles.categories__list}>
                     {submenu.categories.map((cat, index) =>
                       cat.podcategories?.length > 0 ? (
-                        <li className="categories__item" key={index}>
+                        <li className={styles.categories__item} key={index}>
                           <Link to={cat.link}>{cat.title}</Link>
-                          <div className="links">
+                          <div className={styles.links}>
                             <MobileElements link={cat.link}>{cat.title}</MobileElements>
-                            <ul className="links__list">
+                            <ul className={styles.links__list}>
                               {cat.podcategories.map((podCat, index) => (
-                                <li className="links__item" key={index}>
+                                <li className={styles.links__item} key={index}>
                                   <Link to={podCat.link}>{podCat.title}</Link>
                                 </li>
                               ))}
@@ -61,7 +63,7 @@ const MainMenu = () => {
                           </div>
                         </li>
                       ) : (
-                        <li className="categories__item--last" key={index}>
+                        <li className={styles[`categories__item--last`]} key={index}>
                           <Link to={cat.link}>{cat.title}</Link>
                         </li>
                       )
@@ -70,7 +72,7 @@ const MainMenu = () => {
                 </div>
               </li>
             ) : (
-              <li className="submenus__item--last" key={index}>
+              <li className={styles[`submenus__item--last`]} key={index}>
                 <Link to={submenu.link}>{submenu.title}</Link>
               </li>
             )
