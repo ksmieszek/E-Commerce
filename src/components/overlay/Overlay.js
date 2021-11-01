@@ -1,8 +1,8 @@
-import { useOverlayContext } from "providers/OverlayProvider";
+import { useOverlay } from "hooks/useOverlay";
 import styles from "./Overlay.module.scss";
 
 const Overlay = () => {
-  const { isOverlayVisible, makeOverlayInvisible } = useOverlayContext();
+  const { isOverlayVisible, makeOverlayInvisible } = useOverlay();
 
   if (isOverlayVisible) {
     document.body.style.maxHeight = "100%";

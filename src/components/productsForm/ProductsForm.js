@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 import styles from "./ProductsForm.module.scss";
 import CloseButton from "components/closeButton/CloseButton";
-import { useComponentPresenceContext } from "providers/ComponentPresenceProvider";
+import { useComponentPresence } from "hooks/useComponentPresence";
+import Button from "components/button/Button";
 
 const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   let history = useHistory();
@@ -10,7 +11,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const formRef = useRef(null);
-  const { isSidebarVisible, makeSidebarVisible, makeSidebarInvisible } = useComponentPresenceContext();
+  const { isSidebarVisible, makeSidebarVisible, makeSidebarInvisible } = useComponentPresence();
 
   //get data to generate form
   useEffect(() => {
@@ -136,7 +137,11 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
             {colors.length > 0 && <>{generateCheckboxes("Colors", colors, "color")}</>}
           </div>
 
-          <input type="submit" className={styles.filters__button} value="Filter" />
+          <div className={styles.filters__button}>
+            <Button wide rubik type="submit">
+              Filter
+            </Button>
+          </div>
         </form>
       </div>
     </aside>

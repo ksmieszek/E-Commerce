@@ -1,9 +1,15 @@
-.home {
+@use "sass/abstracts" as *;
+
+.wrapper {
   min-height: 200vh;
   background-color: #333;
 }
 
 .hero {
-  height: 100vh;
+  height: calc(100vh - 92px);
   background-color: #fff;
+
+  @media only screen and (min-width: 768px) {
+    height: calc(100vh - 101px);
+  }
 }

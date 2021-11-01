@@ -3,13 +3,6 @@
 .products__form {
   width: 100%;
 
-  button {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
   &.open {
     .wrapper {
       transform: translateX(100%);
@@ -29,8 +22,12 @@
   .filter__opener {
     position: relative;
     padding: 10px 22px;
+    border: none;
+    outline: none;
     font-weight: 500;
     font-family: "Rubik", sans-serif;
+    background-color: transparent;
+    cursor: pointer;
 
     &::before {
       content: "";
@@ -189,20 +186,6 @@
     }
   }
 
-  .filters__button {
-    width: -webkit-fill-available;
-    margin: 10px;
-    padding: 13px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 1.7rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    font-family: "Rubik", sans-serif;
-    background-color: black;
-    color: white;
-  }
-
   @media only screen and (min-width: 1440px) {
     margin-right: 50px;
     width: auto;
@@ -220,12 +203,6 @@
     .wrapper {
       position: static;
       max-width: 300px;
-    }
-
-    .header {
-      .closeButton {
-        display: none;
-      }
     }
 
     .filter {

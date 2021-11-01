@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import menuLinks from "assets/data/menuLinks";
 import MobileElements from "./MobileElements";
 import styles from "./Navigation.module.scss";
-import { useComponentPresenceContext } from "providers/ComponentPresenceProvider";
+import { useComponentPresence } from "hooks/useComponentPresence";
 
 const MainMenu = () => {
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
-  const { isNavVisible, makeNavVisible, makeNavInvisible } = useComponentPresenceContext();
+  const { isNavVisible, makeNavVisible, makeNavInvisible } = useComponentPresence();
 
   useEffect(() => {
     const menuRefCopy = menuRef.current;

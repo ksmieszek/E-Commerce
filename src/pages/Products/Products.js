@@ -3,7 +3,7 @@ import { useNonInitialEffect } from "hooks/useNonInitialEffect";
 import { useLocation } from "react-router";
 import products from "assets/data/products";
 import styles from "./Products.module.scss";
-import StoreTemplate from "templates/StoreTemplate";
+import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import ProductsList from "components/productsList/ProductsList";
 import ProductsForm from "components/productsForm/ProductsForm";
 
@@ -89,12 +89,12 @@ const Products = () => {
   }
 
   return (
-    <StoreTemplate>
-      <div className={styles.productsPage}>
+    <ContentTemplate>
+      <div className={styles.wrapper}>
         <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
         <ProductsList>{filteredProducts}</ProductsList>
       </div>
-    </StoreTemplate>
+    </ContentTemplate>
   );
 };
 

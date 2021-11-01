@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useOverlayContext } from "providers/OverlayProvider";
+import { useOverlay } from "hooks/useOverlay";
 
 export const ComponentPresenceContext = createContext();
 
-export const useComponentPresenceContext = () => useContext(ComponentPresenceContext);
+export const useComponentPresence = () => useContext(ComponentPresenceContext);
 
 const ComponentPresenceProvider = ({ children }) => {
-  const { isOverlayVisible, makeOverlayVisible, makeOverlayInvisible } = useOverlayContext();
+  const { isOverlayVisible, makeOverlayVisible, makeOverlayInvisible } = useOverlay();
 
   const [isNavVisible, setIsNavVisible] = useState(false);
   const makeNavVisible = () => {

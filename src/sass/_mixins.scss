@@ -1,0 +1,10 @@
+@mixin sidebar-card {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  transform: translateX(0);
+  width: 100%;
+  max-width: 375px;
+  background-color: #fff;
+  transition: all 0.1s linear;
+}
