@@ -4,6 +4,7 @@ export const unauthUserSlice = createSlice({
   name: "unauthUser",
   initialState: {
     cart: [],
+    viewedProducts: [],
   },
   reducers: {
     unauthAddToCart: (state, { payload }) => {

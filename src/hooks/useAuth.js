@@ -53,6 +53,7 @@ const AuthProvider = ({ children }) => {
               displayName,
               email,
               cart: [],
+              viewedProducts: [],
             });
             dispatch(saveUser({ uid, displayName, email }));
           } catch (err) {

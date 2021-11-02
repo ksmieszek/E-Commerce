@@ -10,6 +10,7 @@ import styles from "./Product.module.scss";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import ImageSlider from "components/imageSlider/ImageSlider";
 import Suggestions from "components/suggestions/Suggestions";
+import RecentlyViewed from "components/recentlyViewed/RecentlyViewed";
 import Button from "components/button/Button";
 
 const schema = yup.object().shape({
@@ -89,6 +90,10 @@ const Product = ({ match }) => {
         <section className={styles.more__products}>
           <h2>Similar styles</h2>
           <Suggestions products={products} product={product} />
+        </section>
+        <section className={styles.more__products}>
+          <h2>Your recently viewed products</h2>
+          <RecentlyViewed product={product} />
         </section>
       </div>
     </ContentTemplate>
