@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { useCart } from "hooks/useCart";
 import { db } from "firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useForm } from "react-hook-form";
@@ -17,6 +18,7 @@ const schema = yup.object().shape({
 });
 
 const Product = ({ match }) => {
+  const { addToCart } = useCart();
   const { id: UrlProductId } = match.params;
   const [product, setProduct] = useState(null);
   const [sliderImages, setSliderImages] = useState([]);
@@ -47,7 +49,7 @@ const Product = ({ match }) => {
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => addToCart(data);
 
   return (
     <ContentTemplate>

@@ -80,6 +80,25 @@
       &:hover {
         background-color: #f7f7f7;
       }
+
+      &.cart {
+        position: relative;
+
+        .counter {
+          position: absolute;
+          top: 0px;
+          right: -3px;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          background: $blue-color;
+          color: white;
+        }
+      }
     }
   }
 
@@ -102,6 +121,7 @@
       max-width: 200px;
       padding: 6px 10px;
       padding-right: 50px;
+      // border: 1px solid #6b6b6b;
       border: 1px solid $light-gray;
       border-radius: 50px;
       outline: none;

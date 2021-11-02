@@ -5,21 +5,28 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import sortReducer from "./sortSlice";
 import gridReducer from "./gridSlice";
+import unauthUserReducer from "./unauthUserSlice";
 import { setAutoFreeze } from "immer";
 
 // Fixes "Cannot assign to read only property" error message
 // when modifying objects from Redux state directly.
 setAutoFreeze(false);
 
+const persistConfigUnauthUser = {
+  key: "unauthUser",
+  storage: storage,
+};
+
 const persistConfigGrid = {
   key: "grid",
   storage: storage,
-  // whitelist: ["gridClass"],
 };
 
+const persistedUnauthUserReducer = persistReducer(persistConfigUnauthUser, unauthUserReducer);
 const persistedGridReducer = persistReducer(persistConfigGrid, gridReducer);
 
 const rootReducer = combineReducers({
+  unauthUser: persistedUnauthUserReducer,
   grid: persistedGridReducer,
   sort: sortReducer,
 });
