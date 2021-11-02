@@ -6,13 +6,13 @@ import styles from "./Navigation.module.scss";
 
 const UserMenu = () => (
   <div className={styles.userMenu}>
-    <Link className={styles.userMenu__icon} to="/">
+    <Link className={styles.userMenu__icon} to="/404">
       <img src={heartIcon} alt="" />
     </Link>
-    <Link className={styles.userMenu__icon} to="/">
+    <Link className={styles.userMenu__icon} to="/404">
       <img src={userIcon} alt="" />
     </Link>
-    <Link className={styles.userMenu__icon} to="/">
+    <Link className={styles.userMenu__icon} to="/404">
       <img src={cartIcon} alt="" />
     </Link>
   </div>

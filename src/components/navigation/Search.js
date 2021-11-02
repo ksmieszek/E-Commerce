@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { searchResults, searchPodcategories } from "assets/data/searchResults";
 import { ReactComponent as Glass } from "assets/icons/magnifying-glass.svg";
@@ -36,10 +35,10 @@ const Search = () => {
   function displayMainResults(matches) {
     return matches.mainResults.map((item, index) => (
       <li key={index}>
-        <Link to={`/products${item.route}`}>
+        <a href={`/products${item.route}`}>
           {highlightMatchingString(matches.category.categoryName)}
           <span className={styles.category}>{item.name}</span>
-        </Link>
+        </a>
       </li>
     ));
   }
@@ -51,7 +50,7 @@ const Search = () => {
       categoriesResults.map((item) => item.category.podcategories.map((podcategory) => allResults.set(podcategory.name, podcategory.route)));
     return Array.from(allResults).map(([name, route], index) => (
       <li key={index}>
-        <Link to={`/products${route}`}>{highlightMatchingString(name)}</Link>
+        <a href={`/products${route}`}>{highlightMatchingString(name)}</a>
       </li>
     ));
   }
@@ -83,13 +82,13 @@ const Search = () => {
             <div className={styles.header}>Shortcuts</div>
             <ul>
               <li className={styles.shortcut}>
-                <Link to="">Shipping</Link>
+                <a href="/404">Shipping</a>
               </li>
               <li className={styles.shortcut}>
-                <Link to="">Returns & Refunds</Link>
+                <a href="/404">Returns & Refunds</a>
               </li>
               <li className={styles.shortcut}>
-                <Link to="">FAQs</Link>
+                <a href="/404">FAQs</a>
               </li>
             </ul>
           </>

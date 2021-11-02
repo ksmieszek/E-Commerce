@@ -32,7 +32,7 @@ const Products = () => {
     searchString.split("&").forEach((item) => {
       const splited = item.split("=");
       if (splited.length < 2) window.location = "/404";
-      if (splited[0] === "price-from" || splited[0] === "price-to") priceArr.push(splited);
+      if (splited[0] === "priceFrom" || splited[0] === "priceTo") priceArr.push(splited);
       else categoryArr.push(splited);
     });
     return { categoryArr, priceArr };
@@ -59,11 +59,11 @@ const Products = () => {
       prices[item[0]] = item[1];
     });
     return filteredByPath.filter((product) => {
-      const hasPriceFrom = prices.hasOwnProperty("price-from");
-      const hasPriceTo = prices.hasOwnProperty("price-to");
+      const hasPriceFrom = prices.hasOwnProperty("priceFrom");
+      const hasPriceTo = prices.hasOwnProperty("priceTo");
       const productPrice = parseFloat(product.price);
-      const priceFrom = parseFloat(prices["price-from"]);
-      const priceTo = parseFloat(prices["price-to"]);
+      const priceFrom = parseFloat(prices["priceFrom"]);
+      const priceTo = parseFloat(prices["priceTo"]);
       if (hasPriceFrom && hasPriceTo) return productPrice > priceFrom && productPrice < priceTo;
       if (hasPriceFrom) return productPrice > priceFrom;
       if (hasPriceTo) return productPrice < priceTo;
@@ -77,12 +77,16 @@ const Products = () => {
       return (
         categoryArr.filter((searchGroup) => {
           const categoryValues = searchGroup[1].split(",");
-          categoryValues.filter((categoryValue) => {
-            const found = product.categories.find((prodCat) => categoryValue === prodCat);
-            if (found) numOfCatFound++;
-            return found;
-          });
-          if (numOfCatFound >= numOfCat) return true;
+          categoryValues.find((categoryValue) =>
+            product.categories.find((prodCat) => {
+              if (categoryValue === prodCat) {
+                numOfCatFound++;
+                return true;
+              }
+              return false;
+            })
+          );
+          if (numOfCatFound === numOfCat) return true;
           else return false;
         }).length !== 0
       );

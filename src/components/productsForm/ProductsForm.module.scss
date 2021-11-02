@@ -1,32 +1,19 @@
 @use "sass/abstracts" as *;
 
 .products__form {
-  width: 100%;
+  @include sidebar-card;
+  right: 100%;
+  display: flex;
+  flex-direction: column;
 
   &.open {
-    .wrapper {
-      transform: translateX(100%);
-      overflow-y: auto;
-      z-index: 999;
-    }
-  }
-
-  .wrapper {
-    position: fixed;
-    top: 0;
-    right: 100%;
-    bottom: 0;
-    width: 100vw;
-    max-width: 375px;
-    transform: translateX(0);
-    background-color: #fff;
-    transition: all 0.1s linear;
-    display: flex;
-    flex-direction: column;
+    transform: translateX(100%);
+    overflow-y: auto;
+    z-index: 999;
   }
 
   .header {
-    padding: 20px 12px 20px 20px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,7 +37,7 @@
 
     &__name {
       position: relative;
-      padding: 14px 12px 14px 20px;
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -63,7 +50,7 @@
       &::before {
         content: "";
         position: absolute;
-        right: 15px;
+        right: 23px;
         top: 50%;
         transform: translateY(-50%);
         width: 20px;
@@ -91,7 +78,7 @@
   .filter__options {
     margin-bottom: 15px;
     padding-left: 20px;
-    padding-right: 12px;
+    padding-right: 20px;
     display: none;
 
     &--price {
@@ -101,12 +88,12 @@
 
       .price {
         // width: 120px;
-        width: 35%;
-        height: 30px;
         padding-left: 5px;
+        outline: none;
         border: none;
         border-bottom: 1px solid #444;
-        outline: none;
+        width: 35%;
+        height: 30px;
         font-size: 1.6rem;
       }
     }
@@ -119,13 +106,13 @@
       justify-content: space-between;
       align-items: center;
       text-transform: capitalize;
+      cursor: pointer;
     }
 
     &__checkmark {
       position: relative;
       width: 20px;
       height: 20px;
-      margin-right: 3px;
       outline: 0px;
       border: 1px solid rgb(200, 199, 199);
       appearance: none;
@@ -146,7 +133,6 @@
 
       &:checked {
         border-color: black;
-        border-width: 1px;
         background-color: black;
       }
     }
@@ -158,13 +144,13 @@
   }
 
   @media only screen and (min-width: 1440px) {
+    position: static;
     margin-right: 50px;
     width: auto;
+    max-width: 300px;
 
     &.open {
-      .wrapper {
-        transform: translateX(0);
-      }
+      transform: translateX(0);
     }
 
     .filters {
@@ -175,15 +161,11 @@
       }
     }
 
-    .wrapper {
-      position: static;
-      max-width: 300px;
-    }
-
     .filter {
       border: none;
 
       &__name {
+        padding: 20px 20px 8px;
         cursor: default;
 
         &::before {
@@ -192,9 +174,9 @@
       }
 
       &__options {
-        display: block;
-        padding-right: 12px;
+        padding-right: 20px;
         padding-left: 20px;
+        display: block;
 
         &--price {
           display: flex;

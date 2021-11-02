@@ -1,7 +1,7 @@
 const menuLinks = [
   {
     title: "Men",
-    link: "/men",
+    link: "/products/men",
     categories: [
       {
         title: "Trousers",
@@ -9,136 +9,136 @@ const menuLinks = [
         podcategories: [
           {
             title: "Jeans",
-            link: "/products/men/trousers?type=jeans",
+            link: "/products/men/trousers?podcategory=jeans",
           },
           {
             title: "Tracksuit",
-            link: "/products/men/trousers?type=tracksuit",
+            link: "/products/men/trousers?podcategory=tracksuit",
           },
           {
             title: "Suit Trousers",
-            link: "/products/men/trousers?type=suit-trousers",
+            link: "/products/men/trousers?podcategory=suit-trousers",
           },
         ],
       },
       {
         title: "T-shirts",
-        link: "/products/men/trousers",
+        link: "/404",
         podcategories: [
           {
             title: "Raglans",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Pocket Tees",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "V-Neck",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Crewneck",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Short sleeves",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Long sleeves",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Tank Tops",
-            link: "/products/men/trousers",
+            link: "/404",
           },
         ],
       },
       {
         title: "Sweatshirts & Hoodies",
-        link: "/products/men/trousers",
+        link: "/404",
         podcategories: [
           {
             title: "Quarter-Zips",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Hoodie",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Full-Zips",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Crewneck",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Sweaters",
-            link: "/products/men/trousers",
+            link: "/404",
           },
         ],
       },
       {
         title: "Workout & Gym",
-        link: "/products/men/trousers",
+        link: "/404",
         podcategories: [
           {
             title: "Tanks",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Shorts",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Sweatshirts & Hoodies",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Golf",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Tees",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Joggers",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Swim",
-            link: "/products/men/trousers",
+            link: "/404",
           },
         ],
       },
 
       {
         title: "Coats & Jackets",
-        link: "/products/men/trousers",
+        link: "/404",
         podcategories: [
           {
             title: "Fleece",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Waterproof",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Puffers",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Vests",
-            link: "/products/men/trousers",
+            link: "/404",
           },
           {
             title: "Other",
-            link: "/products/men/trousers",
+            link: "/404",
           },
         ],
       },
@@ -146,7 +146,7 @@ const menuLinks = [
   },
   {
     title: "Women",
-    link: "/women",
+    link: "/products/women",
     categories: [
       {
         title: "Sweatshirts",
@@ -154,154 +154,154 @@ const menuLinks = [
         podcategories: [
           {
             title: "basic",
-            link: "/products/women/sweatshirts?type=basic",
+            link: "/products/women/sweatshirts?podcategory=basic",
           },
           {
             title: "hoodie",
-            link: "/products/women/sweatshirts?type=hoodie",
+            link: "/products/women/sweatshirts?podcategory=hoodie",
           },
         ],
       },
       {
         title: "T-Shirts & Tops",
-        link: "/products/women/sweatshirts",
+        link: "/404",
         podcategories: [
           {
             title: "Tank Tops",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "V-neck",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Long sleeves",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Crewneck",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Short sleeves",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Raglans",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Button Down",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Polos",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Scoop Neck",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
         ],
       },
       {
         title: "Workout",
-        link: "/products/women/sweatshirts",
+        link: "/404",
         podcategories: [
           {
             title: "Golf",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Tanks",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Tees",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Shorts",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
 
           {
             title: "Sports Bras",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Leggings & Pants",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Swimwear",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
         ],
       },
       {
         title: "Coats & Jackets",
-        link: "/products/women/sweatshirts",
+        link: "/404",
         podcategories: [
           {
             title: "Fleece",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Waterproof",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Puffers",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Vests",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
         ],
       },
       {
         title: "Work",
-        link: "/products/women/sweatshirts",
+        link: "/404",
         podcategories: [
           {
             title: "Polos",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Button Down",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Aprons",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Dresses",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
         ],
       },
       {
         title: "Sleepwear & Lounge",
-        link: "/products/women/sweatshirts",
+        link: "/404",
         podcategories: [
           {
             title: "Lounge Tops",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Lounge Bottoms",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Sleep Bottoms",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
           {
             title: "Underwear",
-            link: "/products/women/sweatshirts",
+            link: "/404",
           },
         ],
       },
@@ -309,27 +309,27 @@ const menuLinks = [
   },
   {
     title: "Accessories",
-    link: "/accessories",
+    link: "/404",
   },
   {
     title: "New in",
-    link: "/new-in",
+    link: "/404",
   },
   {
     title: "Sale",
-    link: "/sale",
+    link: "/404",
     categories: [
       {
         title: "All",
-        link: "/sale",
+        link: "/404",
       },
       {
         title: "Men",
-        link: "/sale",
+        link: "/404",
       },
       {
         title: "Women",
-        link: "/sale",
+        link: "/404",
       },
     ],
   },

@@ -7,27 +7,27 @@ export const searchPodcategories = {
   },
   jeans: {
     name: "Jeans",
-    route: `/${categories.type.trousers}?type=${categories.type.jeans}`,
+    route: `/${categories.type.trousers}?podcategory=${categories.type.jeans}`,
   },
   tracksuit: {
     name: "Tracksuit",
-    route: `/${categories.type.trousers}?type=${categories.type.tracksuit}`,
+    route: `/${categories.type.trousers}?podcategory=${categories.type.tracksuit}`,
   },
   suitTrousers: {
     name: "Suit Trousers",
-    route: `/${categories.type.trousers}?type=${categories.type.suitTrouser}`,
+    route: `/${categories.type.trousers}?podcategory=${categories.type.suitTrouser}`,
   },
   basicSweatshirts: {
     name: "Basic sweatshirts",
-    route: `/${categories.type.sweatshirts}?type=${categories.type.basicSweatshirt}`,
+    route: `/${categories.type.sweatshirts}?podcategory=${categories.type.basicSweatshirt}`,
   },
   hoodie: {
     name: "hoodies",
-    route: `/${categories.type.sweatshirts}?type=${categories.type.hoodie}`,
+    route: `/${categories.type.sweatshirts}?podcategory=${categories.type.hoodie}`,
   },
   zipperSweatshirt: {
     name: "zipper sweatshirts",
-    route: `/${categories.type.sweatshirts}?type=${categories.type.zipperSweatshirt}`,
+    route: `/${categories.type.sweatshirts}?podcategory=${categories.type.zipperSweatshirt}`,
   },
 };
 
