@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
   const userId = useSelector((state) => state.authUser.userId);
   const dispatch = useDispatch();
   const [uid, setUid] = useState(undefined);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -21,10 +22,16 @@ const AuthProvider = ({ children }) => {
         const findUser = await getDoc(doc(db, `users`, userId));
         if (findUser.exists()) {
           setUid(userId);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
         }
       } catch (err) {
         setUid(undefined);
         dispatch(saveUser(""));
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       }
     })();
   }, [userId]);
@@ -84,7 +91,7 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  return <AuthContext.Provider value={{ uid, SignIn, SignOut }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ uid, SignIn, SignOut, loading }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

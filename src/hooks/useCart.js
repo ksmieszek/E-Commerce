@@ -12,18 +12,19 @@ export const useCart = () => useContext(CartContext);
 
 const CartProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const { uid } = useAuth();
+  const { uid, loading } = useAuth();
   const unauthCart = useSelector((state) => state.unauthUser.cart);
   const [userCart, setUserCart] = useState([]);
 
   useEffect(() => {
-    if (uid === undefined) setUserCart(unauthCart);
-    else
-      (async () => {
-        const firestoreCart = await fetchCart();
-        setUserCart(firestoreCart);
-      })();
-  }, [uid]);
+    if (loading === false)
+      if (uid === undefined) setUserCart(unauthCart);
+      else
+        (async () => {
+          const firestoreCart = await fetchCart();
+          setUserCart(firestoreCart);
+        })();
+  }, [uid, loading]);
 
   //update userCart when redux cart change
   useNonInitialEffect(() => {
