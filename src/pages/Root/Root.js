@@ -7,6 +7,7 @@ import { store, persistor } from "store";
 import Home from "pages/Home/Home";
 import Products from "pages/Products/Products";
 import NotFound from "pages/404/NotFound";
+import Product from "pages/Product/Product";
 import OverlayProvider from "hooks/useOverlay";
 import ComponentPresenceProvider from "hooks/useComponentPresence";
 import MainTemplate from "templates/mainTemplate/MainTemplate";
@@ -22,6 +23,7 @@ const Root = () => {
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/products/:query" component={Products} />
+                  <Route path="/product/:id" component={Product} />
                   <Route component={NotFound} />
                 </Switch>
               </MainTemplate>

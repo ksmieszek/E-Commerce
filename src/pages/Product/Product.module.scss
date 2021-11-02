@@ -1,0 +1,89 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .product__wrapper {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .product__properties {
+    padding: 10px 10px;
+    width: 100%;
+    max-width: 430px;
+  }
+
+  .product__name {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  .product__price {
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+
+  .sizes {
+    margin-top: 15px;
+  }
+  .sizes__list {
+    display: flex;
+  }
+
+  .size {
+    margin: 5px 10px 5px 0;
+    width: 60px;
+    padding: 5px 0;
+    border: 2px solid $light-gray;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &.active {
+      border: 2px solid black;
+    }
+  }
+
+  .final__row {
+    margin-top: 20px;
+    display: flex;
+  }
+
+  .quantity {
+    margin-right: 20px;
+    padding: 8px;
+    border: 1px solid $light-gray;
+    border-radius: 15px;
+    width: 70px;
+    font-size: 1.6rem;
+    text-align: center;
+    outline: none;
+
+    &:focus {
+      border: 1px solid black;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .product__wrapper {
+      max-width: unset;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .product__properties {
+      min-width: 400px;
+    }
+  }
+}
