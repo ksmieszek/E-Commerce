@@ -9,6 +9,7 @@ import * as yup from "yup";
 import styles from "./Product.module.scss";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import ImageSlider from "components/imageSlider/ImageSlider";
+import Suggestions from "components/suggestions/Suggestions";
 import Button from "components/button/Button";
 
 const schema = yup.object().shape({
@@ -20,6 +21,7 @@ const schema = yup.object().shape({
 const Product = ({ match }) => {
   const { addToCart } = useCart();
   const { id: UrlProductId } = match.params;
+  const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [sliderImages, setSliderImages] = useState([]);
   let history = useHistory();
@@ -29,6 +31,7 @@ const Product = ({ match }) => {
       const products = [];
       const querySnapshot = await getDocs(collection(db, "products"));
       querySnapshot.forEach((doc) => products.push(Object.assign(doc.data(), { id: doc.id })));
+      setProducts(products);
       const product = products.find((item) => item.id === UrlProductId);
       if (product === undefined) {
         history.push("/404");
@@ -83,6 +86,10 @@ const Product = ({ match }) => {
             </form>
           </div>
         </main>
+        <section className={styles.more__products}>
+          <h2>Similar styles</h2>
+          <Suggestions products={products} product={product} />
+        </section>
       </div>
     </ContentTemplate>
   );

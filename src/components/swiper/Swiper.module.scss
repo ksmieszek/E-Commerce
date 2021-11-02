@@ -1,0 +1,68 @@
+@use "sass/abstracts" as *;
+
+.swiper {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background: #333;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 25px;
+    background: $light-gray;
+  }
+
+  .slide {
+    margin: 20px 40px 20px 0;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    img {
+      max-width: 200px;
+      display: block;
+    }
+
+    .product__name {
+      position: relative;
+      height: 25px;
+      font-size: 1.4rem;
+
+      .name {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .product__price {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    padding-bottom: 20px;
+
+    .slide {
+      img {
+        max-width: 250px;
+      }
+    }
+  }
+}
