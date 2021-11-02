@@ -6,6 +6,7 @@ import styles from "./Products.module.scss";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import ProductsList from "components/productsList/ProductsList";
 import ProductsForm from "components/productsForm/ProductsForm";
+import ProductsOverviewOptions from "components/productsOverviewOptions/ProductsOverviewOptions";
 
 const Products = () => {
   let location = useLocation();
@@ -92,7 +93,10 @@ const Products = () => {
     <ContentTemplate>
       <div className={styles.wrapper}>
         <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
-        <ProductsList>{filteredProducts}</ProductsList>
+        <div>
+          <ProductsOverviewOptions />
+          <ProductsList filteredProducts={filteredProducts} />
+        </div>
       </div>
     </ContentTemplate>
   );

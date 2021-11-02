@@ -1,0 +1,67 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  margin-right: 30px;
+  display: flex;
+
+  &.grid-template-columns-2 {
+    .gridIcon {
+      &.small,
+      &.medium {
+        background: white !important;
+      }
+      &.big {
+        background: gray !important;
+      }
+    }
+  }
+  &.grid-template-columns-3 {
+    .gridIcon {
+      &.small,
+      &.big {
+        background: white !important;
+      }
+      &.medium {
+        background: gray !important;
+      }
+    }
+  }
+  &.grid-template-columns-4 {
+    .gridIcon {
+      &.small {
+        background: gray !important;
+      }
+      &.medium,
+      &.big {
+        background: white !important;
+      }
+    }
+  }
+
+  .gridIcon {
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+
+    &.small,
+    &.medium {
+      background: white;
+    }
+
+    &.big {
+      background: gray;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .gridIcon {
+      &.small,
+      &.big {
+        background: white;
+      }
+      &.medium {
+        background: gray;
+      }
+    }
+  }
+}

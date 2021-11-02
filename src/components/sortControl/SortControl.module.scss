@@ -1,0 +1,98 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  position: relative;
+
+  .list__opener {
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid $light-gray;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1.6rem;
+    text-align: left;
+    appearance: none;
+    background: white;
+    cursor: pointer;
+
+    &:focus {
+      border: 1px solid $blue-color;
+
+      & ~ .list {
+        display: block;
+      }
+    }
+
+    &--narrow {
+      display: block;
+      font-weight: 500;
+    }
+    &--wide {
+      display: none;
+    }
+  }
+
+  .list {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    border-radius: 5px;
+    width: 190px;
+    display: none;
+    background: white;
+    overflow: hidden;
+
+    &:hover {
+      display: block;
+    }
+  }
+
+  .item {
+    padding: 5px 10px;
+    border-left: 1px solid $light-gray;
+    border-right: 1px solid $light-gray;
+    width: 100%;
+    cursor: pointer;
+
+    &.selected {
+      border-left: 1px solid $blue-color;
+      border-right: 1px solid $blue-color;
+      background: $blue-color;
+      color: white;
+
+      &:hover {
+        background: $blue-color;
+      }
+    }
+
+    &:first-child {
+      border-top: 1px solid $light-gray;
+      &.selected {
+        border-top: 1px solid $blue-color;
+      }
+    }
+    &:last-child {
+      border-bottom: 1px solid $light-gray;
+      &.selected {
+        border-bottom: 1px solid $blue-color;
+      }
+    }
+
+    &:hover {
+      background: $light-gray;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 190px;
+
+    .list__opener {
+      &--narrow {
+        display: none;
+      }
+      &--wide {
+        display: block;
+      }
+    }
+  }
+}

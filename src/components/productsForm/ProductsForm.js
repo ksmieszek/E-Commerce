@@ -11,7 +11,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const formRef = useRef(null);
-  const { isSidebarVisible, makeSidebarVisible, makeSidebarInvisible } = useComponentPresence();
+  const { isSidebarVisible, makeSidebarInvisible } = useComponentPresence();
 
   //get data to generate form
   useEffect(() => {
@@ -80,7 +80,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   }
 
   function handleUnfold(e) {
-    e.currentTarget.classList.toggle("unfold");
+    e.currentTarget.classList.toggle(styles.unfold);
   }
 
   function generateCheckboxes(name, array, type, displayQuantity) {
@@ -108,12 +108,6 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
 
   return (
     <aside className={`${styles.products__form} ${isSidebarVisible ? styles.open : ""}`}>
-      <div className={styles.openers}>
-        <button className={styles.filter__opener} onClick={() => makeSidebarVisible()}>
-          FILTERS
-        </button>
-        {/* <button>sort</button> */}
-      </div>
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.header__title}>Filters</div>
@@ -121,7 +115,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
         </div>
 
         <form onSubmit={handleFormSubmit} ref={formRef} className={styles.filters}>
-          <div className={styles.filters__list}>
+          <div>
             <div className={styles.filter}>
               <div className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
                 Price

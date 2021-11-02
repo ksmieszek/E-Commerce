@@ -1,0 +1,43 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .sort__controls {
+    display: flex;
+    align-items: center;
+  }
+
+  .filters__opener {
+    position: relative;
+    padding: 10px 22px;
+    border: none;
+    outline: none;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    background-color: transparent;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      background-image: url("/assets/icons/adjust.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+    .filters__opener {
+      display: none;
+    }
+  }
+}

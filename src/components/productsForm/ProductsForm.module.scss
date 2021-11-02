@@ -11,39 +11,6 @@
     }
   }
 
-  .openers {
-    max-width: 900px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .filter__opener {
-    position: relative;
-    padding: 10px 22px;
-    border: none;
-    outline: none;
-    font-weight: 500;
-    font-family: "Rubik", sans-serif;
-    background-color: transparent;
-    cursor: pointer;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 15px;
-      height: 15px;
-      background-image: url("/assets/icons/adjust.svg");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-    }
-  }
-
   .wrapper {
     position: fixed;
     top: 0;
@@ -72,6 +39,10 @@
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
+
+    &__button {
+      margin: 10px;
+    }
   }
 
   .filter {
@@ -196,8 +167,12 @@
       }
     }
 
-    .filter__opener {
-      display: none;
+    .filters {
+      justify-content: unset;
+
+      &__button {
+        margin-top: 50px;
+      }
     }
 
     .wrapper {
