@@ -1,23 +1,38 @@
 import { useEffect, useState } from "react";
 import { useNonInitialEffect } from "hooks/useNonInitialEffect";
-import { useLocation } from "react-router";
-import products from "assets/data/products";
+import { useLocation, useHistory } from "react-router";
 import styles from "./Products.module.scss";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import ProductsList from "components/productsList/ProductsList";
 import ProductsForm from "components/productsForm/ProductsForm";
 import ProductsOverviewOptions from "components/productsOverviewOptions/ProductsOverviewOptions";
+import { db } from "firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Products = () => {
   let location = useLocation();
+  let history = useHistory();
   const [filteredProductsByPath, setFilteredProductsByPath] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     if (location.pathname === "") return;
-    const filteredByPath = filterByPathname();
-    setFilteredProductsByPath(filteredByPath);
-    filterBySearchQuery(filteredByPath);
+    async function fetchProducts() {
+      const products = [];
+      const querySnapshot = await getDocs(collection(db, "products"));
+      querySnapshot.forEach((doc) => products.push(Object.assign(doc.data(), { id: doc.id })));
+      return products;
+    }
+    (async () => {
+      const products = await fetchProducts();
+      const filteredByPath = filterByPathname(products);
+      if (filteredByPath.length === 0) {
+        history.push("/404");
+        return;
+      }
+      setFilteredProductsByPath(filteredByPath);
+      filterBySearchQuery(filteredByPath);
+    })();
   }, [location.pathname]);
 
   useNonInitialEffect(() => {
@@ -38,7 +53,7 @@ const Products = () => {
     return { categoryArr, priceArr };
   }
 
-  function filterByPathname() {
+  function filterByPathname(products) {
     const categoriesToMatch = location.pathname.split("/").slice(2);
     return products.filter((product) => {
       const allCatMatches = categoriesToMatch.filter((category) => product.categories.find((prodCat) => prodCat === category));
