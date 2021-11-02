@@ -81,6 +81,14 @@
         background-color: #f7f7f7;
       }
 
+      &.active {
+        .dropdown {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
       &.cart {
         position: relative;
 
@@ -99,6 +107,21 @@
           color: white;
         }
       }
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      padding: 30px 15px;
+      transform: translateY(-6px);
+      display: none;
+      border: 1px solid #ccc;
+      background: white;
+      box-shadow: 0 0 8px -2px #555;
+      z-index: 999;
+      cursor: default;
+      width: 232px;
     }
   }
 

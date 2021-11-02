@@ -12,29 +12,32 @@ import Order from "pages/Order/Order";
 import OverlayProvider from "hooks/useOverlay";
 import ComponentPresenceProvider from "hooks/useComponentPresence";
 import CartProvider from "hooks/useCart";
+import AuthProvider from "hooks/useAuth";
 import MainTemplate from "templates/mainTemplate/MainTemplate";
 
 const Root = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <CartProvider>
-          <OverlayProvider>
-            <ComponentPresenceProvider>
-              <Router>
-                <MainTemplate>
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/products/:query" component={Products} />
-                    <Route path="/product/:id" component={Product} />
-                    <Route path="/order" component={Order} />
-                    <Route component={NotFound} />
-                  </Switch>
-                </MainTemplate>
-              </Router>
-            </ComponentPresenceProvider>
-          </OverlayProvider>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <OverlayProvider>
+              <ComponentPresenceProvider>
+                <Router>
+                  <MainTemplate>
+                    <Switch>
+                      <Route exact path="/" component={Home} />
+                      <Route path="/products/:query" component={Products} />
+                      <Route path="/product/:id" component={Product} />
+                      <Route path="/order" component={Order} />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </MainTemplate>
+                </Router>
+              </ComponentPresenceProvider>
+            </OverlayProvider>
+          </CartProvider>
+        </AuthProvider>
       </PersistGate>
     </Provider>
   );

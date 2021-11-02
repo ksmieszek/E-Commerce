@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { db } from "firebase";
-import { getDoc, doc } from "firebase/firestore";
+import { updateDoc, getDoc, doc, setDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { useAuth } from "./useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { unauthAddToCart, unauthIncreaseQuantity, unauthDecreaseQuantity, unauthDeleteFromCart, unauthResetCart } from "store/unauthUserSlice";
 import { useNonInitialEffect } from "./useNonInitialEffect";
@@ -11,36 +12,122 @@ export const useCart = () => useContext(CartContext);
 
 const CartProvider = ({ children }) => {
   const dispatch = useDispatch();
+  const { uid } = useAuth();
   const unauthCart = useSelector((state) => state.unauthUser.cart);
   const [userCart, setUserCart] = useState([]);
 
   useEffect(() => {
-    setUserCart(unauthCart);
-  }, []);
+    if (uid === undefined) setUserCart(unauthCart);
+    else
+      (async () => {
+        const firestoreCart = await fetchCart();
+        setUserCart(firestoreCart);
+      })();
+  }, [uid]);
 
   //update userCart when redux cart change
   useNonInitialEffect(() => {
     setUserCart(unauthCart);
   }, [unauthCart]);
 
+  const fetchCart = async () => {
+    const docSnap = await getDoc(doc(db, `users`, uid));
+    return docSnap.data().cart;
+  };
+
   const addToCart = async (product) => {
-    dispatch(unauthAddToCart(product));
+    if (uid === undefined) {
+      dispatch(unauthAddToCart(product));
+      return;
+    }
+    const { id, size, quantity } = product;
+    const productIndexInCart = userCart.findIndex((item) => item.id === id && item.size === size);
+    if (productIndexInCart !== -1) {
+      const cartCopy = [...userCart];
+      cartCopy[productIndexInCart].quantity = parseInt(cartCopy[productIndexInCart].quantity) + parseInt(quantity);
+      updateDoc(doc(db, "users", uid), {
+        userCart: cartCopy,
+      }).then(() => {
+        setUserCart(cartCopy);
+      });
+    } else {
+      const idCartProduct = Date.now();
+      const newProduct = { idCartProduct, id, size, quantity: parseInt(quantity) };
+      try {
+        await setDoc(
+          doc(db, "users", uid),
+          {
+            cart: arrayUnion(newProduct),
+          },
+          { merge: true }
+        ).then(() => {
+          setUserCart([...userCart, newProduct]);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   const increaseQuantity = async (productCartId) => {
-    dispatch(unauthIncreaseQuantity(productCartId));
+    if (uid === undefined) {
+      dispatch(unauthIncreaseQuantity(productCartId));
+      return;
+    }
+    const productIndexInCart = userCart.findIndex((item) => item.idCartProduct === productCartId);
+    const cartCopy = [...userCart];
+    cartCopy[productIndexInCart].quantity += 1;
+    updateDoc(doc(db, "users", uid), {
+      cart: cartCopy,
+    }).then(() => {
+      setUserCart(cartCopy);
+    });
   };
 
   const decreaseQuantity = async (productCartId) => {
-    dispatch(unauthDecreaseQuantity(productCartId));
+    if (uid === undefined) {
+      dispatch(unauthDecreaseQuantity(productCartId));
+      return;
+    }
+    const productIndexInCart = userCart.findIndex((item) => item.idCartProduct === productCartId);
+    if (userCart[productIndexInCart].quantity === 1) {
+      deleteFromCart(productCartId);
+    } else {
+      const cartCopy = [...userCart];
+      cartCopy[productIndexInCart].quantity -= 1;
+      updateDoc(doc(db, "users", uid), {
+        cart: cartCopy,
+      }).then(() => {
+        setUserCart(cartCopy);
+      });
+    }
   };
 
   const deleteFromCart = async (productCartId) => {
-    dispatch(unauthDeleteFromCart(productCartId));
+    if (uid === undefined) {
+      dispatch(unauthDeleteFromCart(productCartId));
+      return;
+    }
+    const productIndexInCart = userCart.findIndex((item) => item.idCartProduct === productCartId);
+    updateDoc(doc(db, "users", uid), {
+      cart: arrayRemove(userCart[productIndexInCart]),
+    }).then(() => {
+      const cartCopy = [...userCart];
+      cartCopy.splice(productIndexInCart, 1);
+      setUserCart(cartCopy);
+    });
   };
 
   const resetCart = async () => {
-    dispatch(unauthResetCart());
+    if (uid === undefined) {
+      dispatch(unauthResetCart());
+      return;
+    }
+    updateDoc(doc(db, "users", uid), {
+      cart: [],
+    }).then(() => {
+      setUserCart([]);
+    });
   };
 
   const fetchAllCartProductsInfo = async () => {
@@ -74,6 +161,7 @@ const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         userCart,
+        fetchCart,
         addToCart,
         increaseQuantity,
         decreaseQuantity,
