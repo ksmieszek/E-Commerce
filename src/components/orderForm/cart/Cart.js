@@ -3,7 +3,7 @@ import { useCart } from "hooks/useCart";
 import styles from "./Cart.module.scss";
 import { Link } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({ editable = true, setDisableNextStep }) => {
   const { userCart, increaseQuantity, decreaseQuantity, deleteFromCart, fetchAllCartProductsInfo, getCartValue } = useCart();
   const [cartWithAllProdInfo, setCartWithAllProdInfo] = useState([]);
   const [cartValue, setCartValue] = useState(0);
@@ -15,6 +15,10 @@ const Cart = () => {
       const cartValueInfo = await getCartValue();
       setCartValue(cartValueInfo);
     })();
+
+    if (editable === false) return;
+    if (userCart.length > 0) setDisableNextStep(false);
+    else setDisableNextStep(true);
   }, [userCart]);
 
   return (
@@ -26,7 +30,7 @@ const Cart = () => {
               <Link to={`/product/${id}`} className={styles.product__image}>
                 <img src={frontImage} alt="" />
               </Link>
-              <div className={`${styles.product__details} `}>
+              <div className={`${styles.product__details} ${!editable ? styles.preview : ""}`}>
                 <div className={styles[`product__section--top`]}>
                   <div className={styles.product__info}>
                     <Link to={`/product/${id}`} className={styles.product__name}>
@@ -34,21 +38,29 @@ const Cart = () => {
                     </Link>
                     <div className={styles.product__size}>Size: {size}</div>
                   </div>
-
-                  <button className={styles.product__remove} onClick={() => deleteFromCart(idCartProduct)}>
-                    del
-                  </button>
+                  {editable && (
+                    <button className={styles.product__remove} onClick={() => deleteFromCart(idCartProduct)}>
+                      del
+                    </button>
+                  )}
                 </div>
-                <div className={`${styles[`product__section--bottom`]} `}>
+                <div className={`${styles[`product__section--bottom`]} ${!editable ? styles.preview : ""}`}>
                   <div className={styles.product__amount}>
-                    <>
-                      <button className={styles[`product__quantity--subtract`]} onClick={() => decreaseQuantity(idCartProduct)}></button>
-                      <div className={styles[`product__quantity--value`]}>{quantity}</div>
-                      <button className={styles[`product__quantity--add`]} onClick={() => increaseQuantity(idCartProduct)}></button>
-                    </>
+                    {editable ? (
+                      <>
+                        <button className={styles[`product__quantity--subtract`]} onClick={() => decreaseQuantity(idCartProduct)}></button>
+                        <div className={styles[`product__quantity--value`]}>{quantity}</div>
+                        <button className={styles[`product__quantity--add`]} onClick={() => increaseQuantity(idCartProduct)}></button>
+                      </>
+                    ) : (
+                      <>
+                        <span className={styles.row__title}>Amount:</span>
+                        {quantity}
+                      </>
+                    )}
                   </div>
                   <div>
-                    <span className={styles.row__title}>Price:</span>PLN {(price * quantity).toFixed(2)}
+                    {!editable && <span className={styles.row__title}>Price:</span>}PLN {(price * quantity).toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -56,7 +68,6 @@ const Cart = () => {
           );
         })}
       </div>
-
       <div className={styles.subtotal}>
         <div>PRODUCTS PRICE:</div>
         <div className={styles.subtotal__value}>PLN {cartValue}</div>

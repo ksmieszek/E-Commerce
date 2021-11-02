@@ -10,8 +10,26 @@
   color: white;
   cursor: pointer;
 
+  &.back {
+    padding: 10px 15px;
+    border: 1px solid $light-gray;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    background: white;
+    color: #333;
+  }
+
   &.wide {
     width: 100%;
+  }
+
+  &.hide {
+    visibility: hidden;
+  }
+
+  &.disableNextStep {
+    background: $light-gray;
   }
 
   &.rubik {

@@ -1,0 +1,53 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+
+  .input__group {
+    display: flex;
+    align-items: center;
+  }
+
+  .input__box {
+    margin: 5px 5px 10px 5px;
+    display: flex;
+    flex-direction: column;
+
+    &.flex-1 {
+      flex: 1;
+    }
+    &.flex-2 {
+      flex: 2;
+    }
+    &.flex-3 {
+      flex: 3;
+    }
+    &.flex-4 {
+      flex: 4;
+    }
+
+    .input__title {
+      padding: 0 5px;
+    }
+
+    input {
+      padding: 8px 10px;
+      outline: none;
+      border: 1px solid #cbcbcb;
+      width: 100%;
+      font-size: 1.4rem;
+
+      &:focus {
+        border: 1px solid $blue-color;
+      }
+    }
+
+    label {
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+  }
+}

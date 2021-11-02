@@ -1,8 +1,13 @@
 import styles from "./Button.module.scss";
 
-const Button = ({ children, wide, rubik, ...rest }) => {
+const Button = ({ children, back, wide, disableNextStep, hide, rubik, ...rest }) => {
   return (
-    <button className={`${styles.button}  ${wide ? styles.wide : ""}  ${rubik ? styles.rubik : ""}`} {...rest}>
+    <button
+      disabled={disableNextStep}
+      className={`${styles.button} ${back ? styles.back : ""} ${wide ? styles.wide : ""} ${disableNextStep ? styles.disableNextStep : ""}
+      ${hide ? styles.hide : ""} ${rubik ? styles.rubik : ""}`}
+      {...rest}
+    >
       {children}
     </button>
   );

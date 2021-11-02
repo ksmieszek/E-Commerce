@@ -1,9 +1,10 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { db } from "firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import { getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { saveUser } from "store/authUserSlice";
+import { saveUnauthPersOrderData } from "store/unauthUserSlice";
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
@@ -12,8 +13,10 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const userId = useSelector((state) => state.authUser.userId);
+  const unauthUser = useSelector((state) => state.unauthUser);
   const dispatch = useDispatch();
   const [uid, setUid] = useState(undefined);
+  const [orderPersData, setOrderPersData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,12 +25,14 @@ const AuthProvider = ({ children }) => {
         const findUser = await getDoc(doc(db, `users`, userId));
         if (findUser.exists()) {
           setUid(userId);
+          setOrderPersData(findUser.data().orderPersData);
           setTimeout(() => {
             setLoading(false);
           }, 1000);
         }
       } catch (err) {
         setUid(undefined);
+        setOrderPersData(unauthUser.orderPersData);
         dispatch(saveUser(""));
         setTimeout(() => {
           setLoading(false);
@@ -60,7 +65,9 @@ const AuthProvider = ({ children }) => {
               displayName,
               email,
               cart: [],
+              orderPersData: {},
               viewedProducts: [],
+              orders: [],
             });
             dispatch(saveUser({ uid, displayName, email }));
           } catch (err) {
@@ -91,7 +98,19 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  return <AuthContext.Provider value={{ uid, SignIn, SignOut, loading }}>{children}</AuthContext.Provider>;
+  const savePersonalOrderData = () => {
+    if (uid === undefined) dispatch(saveUnauthPersOrderData(orderPersData));
+    else
+      updateDoc(doc(db, "users", uid), {
+        orderPersData,
+      });
+  };
+
+  return (
+    <AuthContext.Provider value={{ uid, SignIn, SignOut, orderPersData, setOrderPersData, savePersonalOrderData, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

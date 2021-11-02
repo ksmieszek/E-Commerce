@@ -1,0 +1,24 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  .section {
+    margin-bottom: 50px;
+
+    &__title {
+      margin-bottom: 10px;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+
+  .row {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &.total {
+      font-weight: 500;
+    }
+  }
+}

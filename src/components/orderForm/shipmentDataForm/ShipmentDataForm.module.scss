@@ -1,0 +1,13 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+
+  .options {
+    display: flex;
+    flex-direction: column;
+  }
+}
