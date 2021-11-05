@@ -1,6 +1,6 @@
 import styles from "./RadioInput.module.scss";
 
-const Checkbox = ({ item, field, handleControllerChange, editable = true }) => {
+const RadioInput = ({ item, field, handleControllerChange, editable = true }) => {
   return (
     <>
       <div className={styles.option} key={item.id}>
@@ -24,4 +24,4 @@ const Checkbox = ({ item, field, handleControllerChange, editable = true }) => {
   );
 };
 
-export default Checkbox;
+export default RadioInput;

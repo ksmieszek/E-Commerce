@@ -16,7 +16,7 @@ const schema = yup.object().shape({
   city: yup.string().trim().required(),
 });
 
-const OrderForm = ({ setDisableNextStep }) => {
+const PersonalDataForm = ({ setDisableNextStep }) => {
   const { orderPersData, setOrderPersData } = useAuth();
 
   const {
@@ -148,4 +148,4 @@ const OrderForm = ({ setDisableNextStep }) => {
   );
 };
 
-export default OrderForm;
+export default PersonalDataForm;

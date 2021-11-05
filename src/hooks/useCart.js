@@ -131,11 +131,11 @@ const CartProvider = ({ children }) => {
     });
   };
 
-  const fetchAllCartProductsInfo = async () => {
+  const fetchAllCartProductsInfo = async (items = userCart) => {
     const cartCopy = [];
     await (async () => {
       await Promise.all(
-        [...userCart].map(async (item) => {
+        [...items].map(async (item) => {
           const querySnapshot = await getDoc(doc(db, "products", item.id));
           cartCopy.push({ ...querySnapshot.data(), ...item });
         })
@@ -144,11 +144,11 @@ const CartProvider = ({ children }) => {
     return cartCopy;
   };
 
-  const getCartValue = async () => {
+  const getCartValue = async (items = userCart) => {
     let cartValue = 0;
     await (async () => {
       await Promise.all(
-        [...userCart].map(async (item) => {
+        [...items].map(async (item) => {
           const querySnapshot = await getDoc(doc(db, "products", item.id));
           const { price } = querySnapshot.data();
           cartValue = cartValue + price * item.quantity;

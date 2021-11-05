@@ -9,6 +9,8 @@ import Products from "pages/Products/Products";
 import NotFound from "pages/404/NotFound";
 import Product from "pages/Product/Product";
 import Order from "pages/Order/Order";
+import Orders from "pages/Orders/Orders";
+import PreviousOrder from "pages/PreviousOrder/PreviousOrder";
 import OverlayProvider from "hooks/useOverlay";
 import ComponentPresenceProvider from "hooks/useComponentPresence";
 import CartProvider from "hooks/useCart";
@@ -29,7 +31,9 @@ const Root = () => {
                       <Route exact path="/" component={Home} />
                       <Route path="/products/:query" component={Products} />
                       <Route path="/product/:id" component={Product} />
-                      <Route path="/order" component={Order} />
+                      <Route path="/orders" component={Orders} />
+                      <Route exact path="/order" component={Order} />
+                      <Route path="/order/:id" component={PreviousOrder} />
                       <Route component={NotFound} />
                     </Switch>
                   </MainTemplate>

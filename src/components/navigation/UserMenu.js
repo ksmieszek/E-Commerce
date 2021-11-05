@@ -29,9 +29,16 @@ const UserMenu = () => {
               Sign In
             </Button>
           ) : (
-            <Button onClick={SignOut} wide>
-              Logout
-            </Button>
+            <ul>
+              <li>
+                <a href={`/orders`}>Orders</a>
+              </li>
+              <li>
+                <Button onClick={SignOut} wide>
+                  Logout
+                </Button>
+              </li>
+            </ul>
           )}
         </div>
       </div>

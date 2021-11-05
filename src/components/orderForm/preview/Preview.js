@@ -3,25 +3,25 @@ import Cart from "components/orderForm/cart/Cart";
 import RadioInput from "../radioInput/RadioInput";
 import styles from "./Preview.module.scss";
 
-const Preview = ({ cartValue, shipment, total }) => {
+const Preview = ({ cartValue, shipment, total, cartItems, deliveryInfo }) => {
   const { orderPersData } = useAuth();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.section}>
         <div className={styles.section__title}>Order products</div>
-        <Cart editable={false} />
+        <Cart cartItems={cartItems} />
       </div>
       <div className={styles.section}>
         <div className={styles.section__title}>Delivery address</div>
         <div>
-          {orderPersData.firstName} {orderPersData.surname}
+          {deliveryInfo?.firstName || orderPersData.firstName} {deliveryInfo?.surname || orderPersData.surname}
         </div>
         <div>
-          {orderPersData.street} {orderPersData.no}
+          {deliveryInfo?.street || orderPersData.street} {deliveryInfo?.no || orderPersData.no}
         </div>
         <div>
-          {orderPersData.postalCode} {orderPersData.city}
+          {deliveryInfo?.postalCode || orderPersData.postalCode} {deliveryInfo?.city || orderPersData.city}
         </div>
       </div>
       <div className={styles.section}>

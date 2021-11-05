@@ -122,6 +122,22 @@
       z-index: 999;
       cursor: default;
       width: 232px;
+
+      ul {
+        width: 100%;
+        li {
+          a {
+            padding: 13px 20px;
+            width: 100%;
+            display: block;
+            text-align: center;
+
+            &:hover {
+              background-color: #f7f7f7;
+            }
+          }
+        }
+      }
     }
   }
 
