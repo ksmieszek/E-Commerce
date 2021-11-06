@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router";
 import styles from "./Orders.module.scss";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
+import LackOfItemsInfo from "components/lackOfItemsInfo/LackOfItemsInfo";
 
 const Orders = () => {
   const { uid, loading } = useAuth();
@@ -54,7 +55,7 @@ const Orders = () => {
               </ul>
             </>
           ) : (
-            <div>You have not placed an order yet</div>
+            <LackOfItemsInfo text="You have not placed an order yet"></LackOfItemsInfo>
           )
         ) : (
           !loading && <Redirect to="/404" />

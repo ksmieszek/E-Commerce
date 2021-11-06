@@ -10,6 +10,7 @@ import ShipmentDataForm from "components/orderForm/shipmentDataForm/ShipmentData
 import Preview from "components/orderForm/preview/Preview";
 import StepButtons from "components/orderForm/stepsButtons/StepButtons";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
+import LackOfItemsInfo from "components/lackOfItemsInfo/LackOfItemsInfo";
 
 const Order = () => {
   const [step, setStep] = useState(1);
@@ -83,17 +84,23 @@ const Order = () => {
   return (
     <ContentTemplate>
       <main className={styles.wrapper}>
-        <div className={styles.title}>{StepPagesTitles[step - 1]}</div>
-        {step === 1 && <Cart setDisableNextStep={setDisableNextStep} />}
-        {step === 2 && <PersonalDataForm setDisableNextStep={setDisableNextStep} />}
-        {step === 3 && <ShipmentDataForm setDisableNextStep={setDisableNextStep} shipment={shipment} setShipment={setShipment} />}
-        {step === 4 && <Preview cartValue={cartValue} shipment={shipment} total={total} />}
-        <StepButtons
-          step={step}
-          handleStep={handleStep}
-          nextButtonText={nextStepButtonTexts[step - 1]}
-          disableNextStep={disableNextStep}
-        ></StepButtons>
+        {userCart.length > 0 ? (
+          <>
+            <div className={styles.title}>{StepPagesTitles[step - 1]}</div>
+            {step === 1 && <Cart setDisableNextStep={setDisableNextStep} />}
+            {step === 2 && <PersonalDataForm setDisableNextStep={setDisableNextStep} />}
+            {step === 3 && <ShipmentDataForm setDisableNextStep={setDisableNextStep} shipment={shipment} setShipment={setShipment} />}
+            {step === 4 && <Preview cartValue={cartValue} shipment={shipment} total={total} />}
+            <StepButtons
+              step={step}
+              handleStep={handleStep}
+              nextButtonText={nextStepButtonTexts[step - 1]}
+              disableNextStep={disableNextStep}
+            ></StepButtons>
+          </>
+        ) : (
+          <LackOfItemsInfo text="There are no items in your shopping cart."></LackOfItemsInfo>
+        )}
       </main>
     </ContentTemplate>
   );
