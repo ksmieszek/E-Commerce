@@ -10,14 +10,18 @@
   color: white;
   cursor: pointer;
 
-  &.back {
-    padding: 10px 15px;
+  &.invert {
     border: 1px solid $light-gray;
+    background: white;
+    color: #333;
+  }
+
+  &.back {
+    @extend .invert;
+    padding: 10px 15px;
     border-radius: 10px;
     font-size: 1.5rem;
     font-weight: 400;
-    background: white;
-    color: #333;
   }
 
   &.wide {

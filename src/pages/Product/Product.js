@@ -12,6 +12,7 @@ import ImageSlider from "components/imageSlider/ImageSlider";
 import Suggestions from "components/suggestions/Suggestions";
 import RecentlyViewed from "components/recentlyViewed/RecentlyViewed";
 import Button from "components/button/Button";
+import AddedToCartModal from "components/modal/AddedToCartModal";
 
 const schema = yup.object().shape({
   id: yup.string().trim().required(),
@@ -25,6 +26,7 @@ const Product = ({ match }) => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [sliderImages, setSliderImages] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   let history = useHistory();
 
   useEffect(() => {
@@ -53,7 +55,10 @@ const Product = ({ match }) => {
     },
   });
 
-  const onSubmit = (data) => addToCart(data);
+  const onSubmit = (data) => {
+    addToCart(data);
+    setIsModalOpen(true);
+  };
 
   return (
     <ContentTemplate>
@@ -96,6 +101,7 @@ const Product = ({ match }) => {
           <RecentlyViewed product={product} />
         </section>
       </div>
+      {isModalOpen && <AddedToCartModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}></AddedToCartModal>}
     </ContentTemplate>
   );
 };

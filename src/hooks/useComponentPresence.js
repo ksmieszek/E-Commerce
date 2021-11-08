@@ -28,16 +28,37 @@ const ComponentPresenceProvider = ({ children }) => {
     makeOverlayInvisible();
   };
 
+  const [isComponentVisible, setIsComponentVisible] = useState(false);
+  const makeComponentVisible = () => {
+    setIsComponentVisible(true);
+    makeOverlayVisible();
+  };
+  const makeComponentInvisible = () => {
+    setIsComponentVisible(false);
+    makeOverlayInvisible();
+  };
+
   useEffect(() => {
     if (!isOverlayVisible) {
       makeSidebarInvisible();
       makeNavInvisible();
+      makeComponentInvisible();
     }
   }, [isOverlayVisible]);
 
   return (
     <ComponentPresenceContext.Provider
-      value={{ isNavVisible, makeNavVisible, makeNavInvisible, isSidebarVisible, makeSidebarVisible, makeSidebarInvisible }}
+      value={{
+        isNavVisible,
+        makeNavVisible,
+        makeNavInvisible,
+        isSidebarVisible,
+        makeSidebarVisible,
+        makeSidebarInvisible,
+        isComponentVisible,
+        makeComponentVisible,
+        makeComponentInvisible,
+      }}
     >
       {children}
     </ComponentPresenceContext.Provider>

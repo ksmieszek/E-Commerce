@@ -11,6 +11,7 @@ import Preview from "components/orderForm/preview/Preview";
 import StepButtons from "components/orderForm/stepsButtons/StepButtons";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import LackOfItemsInfo from "components/lackOfItemsInfo/LackOfItemsInfo";
+import CompletedOrderModal from "components/modal/CompletedOrderModal";
 
 const Order = () => {
   const [step, setStep] = useState(1);
@@ -21,6 +22,8 @@ const Order = () => {
   const [total, setTotal] = useState(0);
   const [cartWithProdInfo, setCartWithProdInfo] = useState([]);
   const [cartValue, setCartValue] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [orderCompleted, setOrderCompleted] = useState(false);
 
   const handleStep = (action) => {
     if (step === 1 && action === -1) return;
@@ -77,14 +80,26 @@ const Order = () => {
         orders: arrayUnion(docRef.id),
       });
 
-    //flush cart
+    // reset cart
     resetCart();
+    setOrderCompleted(true);
+    setIsModalOpen(true);
+  };
+
+  const redirectFn = () => {
+    window.location = "/";
   };
 
   return (
     <ContentTemplate>
       <main className={styles.wrapper}>
-        {userCart.length > 0 ? (
+        {orderCompleted ? (
+          isModalOpen ? (
+            <CompletedOrderModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}></CompletedOrderModal>
+          ) : (
+            <>{redirectFn()}</>
+          )
+        ) : userCart.length > 0 ? (
           <>
             <div className={styles.title}>{StepPagesTitles[step - 1]}</div>
             {step === 1 && <Cart setDisableNextStep={setDisableNextStep} />}
