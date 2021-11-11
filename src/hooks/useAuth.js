@@ -50,9 +50,10 @@ const AuthProvider = ({ children }) => {
         // const token = credential.accessToken;
         // console.log("token", token);
         // The signed-in user info.
+        setLoading(true);
         const user = result.user;
         const { uid, displayName, email } = user;
-        //save to firestore
+
         const findUser = await getDoc(doc(db, `users`, uid));
         if (findUser.exists()) {
           dispatch(saveUser({ uid, displayName, email }));
@@ -93,6 +94,7 @@ const AuthProvider = ({ children }) => {
     auth
       .signOut()
       .then(() => {
+        setLoading(true);
         dispatch(saveUser(""));
         window.location = "/";
       })

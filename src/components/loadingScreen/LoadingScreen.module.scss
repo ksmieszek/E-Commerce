@@ -21,7 +21,7 @@
   visibility: hidden;
   opacity: 0;
   z-index: 9999;
-  transition: all 0.3s ease;
+  transition: all 0.3s 1s ease;
 
   &.show {
     visibility: visible;

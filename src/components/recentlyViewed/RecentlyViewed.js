@@ -8,12 +8,12 @@ import { useAuth } from "hooks/useAuth";
 
 const RecentlyViewed = ({ product }) => {
   const [viewedProducts, setViewedProducts] = useState([]);
-  const { uid } = useAuth();
+  const { uid, loading } = useAuth();
   const unauthUser = useSelector((state) => state.unauthUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (product === null) return;
+    if (product === null || loading) return;
     (async () => {
       let viewedProductsIds;
       if (uid === undefined) viewedProductsIds = unauthUser.viewedProducts;
@@ -45,7 +45,7 @@ const RecentlyViewed = ({ product }) => {
       if (uid === undefined) dispatch(updateViewedProducts(viewedProductsIds.slice(0, 6)));
       else setDoc(doc(db, "users", uid), { viewedProducts: viewedProductsIds.slice(0, 6) }, { merge: true });
     })();
-  }, [product, uid]);
+  }, [product, uid, loading]);
 
   return <Swiper items={viewedProducts} />;
 };
