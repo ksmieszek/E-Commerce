@@ -112,7 +112,7 @@ const Products = () => {
     <ContentTemplate>
       <div className={styles.wrapper}>
         <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
-        <div>
+        <div className={styles.wrapper__inner}>
           <ProductsOverviewOptions />
           <ProductsList filteredProducts={filteredProducts} />
         </div>
