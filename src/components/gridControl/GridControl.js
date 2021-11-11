@@ -8,10 +8,10 @@ const GridControl = () => {
 
   return (
     <div className={`${styles.wrapper} ${styles[gridClass]}`}>
-      {gridValues.map((item, index) => (
-        <div className={`${styles.gridIcon} ${styles[item.size]}`} key={index} onClick={() => dispatch(setGridClass(item.styles))}>
-          {item.image}
-        </div>
+      {gridValues.map((grid, index) => (
+        <button className={`${styles.grid__button} ${styles[grid.size]}`} key={index} onClick={() => dispatch(setGridClass(grid.styles))}>
+          <grid.icon className={styles.grid__icon} />
+        </button>
       ))}
     </div>
   );

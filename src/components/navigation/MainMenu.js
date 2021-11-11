@@ -34,9 +34,9 @@ const MainMenu = () => {
 
   return (
     <div className={`${styles.mainMenu} ${isNavVisible ? styles.open : ``}`} ref={menuRef}>
-      <div className={styles.mainMenu__hamburger} ref={hamburgerRef}>
+      <button className={styles.mainMenu__hamburger} ref={hamburgerRef}>
         <div></div>
-      </div>
+      </button>
       <div className={styles.mainMenu__container}>
         <MobileElements>Choose category</MobileElements>
         <ul className={styles.submenus}>

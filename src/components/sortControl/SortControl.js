@@ -13,13 +13,13 @@ const SortControl = () => {
       <div className={styles.list}>
         {Object.entries(sortActions).map(([key, value], index) => {
           return (
-            <div
+            <button
               key={index}
               className={`${styles.item} ${sortActions[sortKey] === sortActions[key] ? styles.selected : ""}`}
               onClick={() => dispatch(changeSortKey(key))}
             >
               {value}
-            </div>
+            </button>
           );
         })}
       </div>

@@ -136,9 +136,9 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   function generateCheckboxes(name, array, type, displayQuantity) {
     return (
       <div className={styles.filter}>
-        <div className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
+        <button type="button" className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
           {name}
-        </div>
+        </button>
         <div className={styles.filter__options}>
           {array.map((field, index) => (
             <div key={field.id} className={styles.category}>
@@ -165,9 +165,9 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.filters}>
         <div>
           <div className={styles.filter}>
-            <div className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
+            <button type="button" className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
               Price
-            </div>
+            </button>
             <div className={`${styles.filter__options} ${styles[`filter__options--price`]}`}>
               <input className={styles.price} type="text" placeholder="from" {...register("priceFrom")} />
               -

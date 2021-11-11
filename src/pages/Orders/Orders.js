@@ -48,7 +48,7 @@ const Orders = () => {
                     <div>{item.date}</div>
                     <div>{item.totalValue} PLN</div>
                     <div>
-                      <button onClick={() => (window.location = `order/${item.id}`)}>Preview</button>
+                      <a href={`order/${item.id}`}>Preview</a>
                     </div>
                   </li>
                 ))}

@@ -82,8 +82,8 @@ const Order = () => {
 
     // reset cart
     resetCart();
-    setOrderCompleted(true);
     setIsModalOpen(true);
+    setOrderCompleted(true);
   };
 
   const redirectFn = () => {

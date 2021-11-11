@@ -56,6 +56,7 @@ const AuthProvider = ({ children }) => {
         const findUser = await getDoc(doc(db, `users`, uid));
         if (findUser.exists()) {
           dispatch(saveUser({ uid, displayName, email }));
+          window.location = "/";
           return;
         }
         //if user logs in first time
@@ -70,6 +71,7 @@ const AuthProvider = ({ children }) => {
               orders: [],
             });
             dispatch(saveUser({ uid, displayName, email }));
+            window.location = "/";
           } catch (err) {
             console.log(err);
           }
@@ -92,6 +94,7 @@ const AuthProvider = ({ children }) => {
       .signOut()
       .then(() => {
         dispatch(saveUser(""));
+        window.location = "/";
       })
       .catch((error) => {
         console.log("An error happened.");

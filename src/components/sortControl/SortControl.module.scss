@@ -41,17 +41,22 @@
     display: none;
     background: white;
     overflow: hidden;
+    z-index: 1;
 
-    &:hover {
+    &:active {
       display: block;
     }
   }
 
   .item {
     padding: 5px 10px;
+    border: none;
     border-left: 1px solid $light-gray;
     border-right: 1px solid $light-gray;
     width: 100%;
+    background-color: white;
+    font-size: 1.6rem;
+    text-align: left;
     cursor: pointer;
 
     &.selected {
@@ -67,12 +72,16 @@
 
     &:first-child {
       border-top: 1px solid $light-gray;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
       &.selected {
         border-top: 1px solid $blue-color;
       }
     }
     &:last-child {
       border-bottom: 1px solid $light-gray;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
       &.selected {
         border-bottom: 1px solid $blue-color;
       }

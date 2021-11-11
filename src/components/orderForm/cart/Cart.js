@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "hooks/useCart";
 import styles from "./Cart.module.scss";
 import { Link } from "react-router-dom";
+import { ReactComponent as TrashCanIcon } from "assets/icons/trash-can.svg";
 
 const Cart = ({ setDisableNextStep, cartItems }) => {
   const { userCart, increaseQuantity, decreaseQuantity, deleteFromCart, fetchAllCartProductsInfo, getCartValue } = useCart();
@@ -41,7 +42,7 @@ const Cart = ({ setDisableNextStep, cartItems }) => {
                   </div>
                   {setDisableNextStep && (
                     <button className={styles.product__remove} onClick={() => deleteFromCart(idCartProduct)}>
-                      del
+                      <TrashCanIcon />
                     </button>
                   )}
                 </div>

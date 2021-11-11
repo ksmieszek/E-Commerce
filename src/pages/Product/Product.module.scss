@@ -37,20 +37,36 @@
   }
 
   .size {
-    margin: 5px 10px 5px 0;
-    width: 60px;
-    padding: 5px 0;
-    border: 2px solid $light-gray;
-    border-radius: 50px;
-    font-size: 1.4rem;
-    text-align: center;
-    user-select: none;
-    cursor: pointer;
-
-    &:hover,
-    &:focus,
     &.active {
-      border: 2px solid black;
+      label {
+        border: 2px solid black;
+      }
+    }
+
+    label {
+      margin: 5px 10px 5px 0;
+      width: 60px;
+      padding: 5px 0;
+      border: 2px solid $light-gray;
+      border-radius: 50px;
+      font-size: 1.4rem;
+      text-align: center;
+      user-select: none;
+      cursor: pointer;
+      display: block;
+
+      &:hover {
+        border: 2px solid black;
+      }
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+
+      &:focus + label {
+        border: 2px solid black;
+      }
     }
   }
 

@@ -73,12 +73,9 @@ const Product = ({ match }) => {
                 Size: {watch("size")}
                 <div className={styles.sizes__list}>
                   {product?.sizes.map((item, index) => (
-                    <div
-                      className={`${styles.size} ${watch("size") === item ? styles.active : ""}`}
-                      key={index}
-                      onClick={() => setValue("size", item)}
-                    >
-                      {item}
+                    <div key={index} className={`${styles.size} ${watch("size") === item ? styles.active : ""}`}>
+                      <input type="radio" name="size"></input>
+                      <label onClick={() => setValue("size", item)}>{item}</label>
                     </div>
                   ))}
                 </div>

@@ -5,62 +5,102 @@
   display: flex;
 
   &.grid-template-columns-2 {
-    .gridIcon {
+    .grid__button {
       &.small,
       &.medium {
-        background: white !important;
+        .grid__icon rect {
+          fill: #d9d9d9 !important;
+        }
       }
       &.big {
-        background: gray !important;
+        .grid__icon rect {
+          fill: #a9a9a9 !important;
+        }
       }
     }
   }
   &.grid-template-columns-3 {
-    .gridIcon {
+    .grid__button {
       &.small,
       &.big {
-        background: white !important;
+        .grid__icon rect {
+          fill: #d9d9d9 !important;
+        }
       }
       &.medium {
-        background: gray !important;
+        .grid__icon rect {
+          fill: #a9a9a9 !important;
+        }
       }
     }
   }
   &.grid-template-columns-4 {
-    .gridIcon {
+    .grid__button {
       &.small {
-        background: gray !important;
+        .grid__icon rect {
+          fill: #a9a9a9 !important;
+        }
       }
       &.medium,
       &.big {
-        background: white !important;
+        .grid__icon rect {
+          fill: #d9d9d9 !important;
+        }
       }
     }
   }
 
-  .gridIcon {
+  .grid__button {
     padding: 5px;
     margin: 5px;
+    border: none;
+    background-color: white;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
+
+    &:hover,
+    &:focus {
+      &.small,
+      &.medium,
+      &.big {
+        .grid__icon rect {
+          fill: #a9a9a9 !important;
+        }
+      }
+    }
 
     &.small,
     &.medium {
-      background: white;
+      .grid__icon rect {
+        fill: #d9d9d9;
+      }
     }
 
     &.big {
-      background: gray;
+      .grid__icon rect {
+        fill: #a9a9a9;
+      }
+    }
+
+    .grid__icon {
+      width: 100%;
+      height: 100%;
     }
   }
 
   @media only screen and (min-width: 768px) {
-    .gridIcon {
+    .grid__button {
       &.small,
       &.big {
-        background: white;
+        .grid__icon rect {
+          fill: #d9d9d9;
+        }
       }
       &.medium {
-        background: gray;
+        .grid__icon rect {
+          fill: #a9a9a9;
+        }
       }
     }
   }

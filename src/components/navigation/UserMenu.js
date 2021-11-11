@@ -6,6 +6,7 @@ import { useAuth } from "hooks/useAuth";
 import { useCart } from "hooks/useCart";
 import styles from "./Navigation.module.scss";
 import Button from "components/button/Button";
+import Hyperlink from "components/button/Hyperlink";
 
 const UserMenu = () => {
   const { uid, SignIn, SignOut } = useAuth();
@@ -16,13 +17,9 @@ const UserMenu = () => {
       <Link className={styles.userMenu__icon} to="/404">
         <img src={heartIcon} alt="" />
       </Link>
-      <div
-        className={styles.userMenu__icon}
-        onClick={(e) => {
-          e.currentTarget.classList.toggle(styles.active);
-        }}
-      >
+      <div className={`${styles.userMenu__icon} ${styles.user}`}>
         <img src={userIcon} alt="" />
+        <button className={styles.invisible}></button>
         <div className={styles.dropdown}>
           {uid === undefined ? (
             <Button onClick={SignIn} wide>
@@ -31,7 +28,9 @@ const UserMenu = () => {
           ) : (
             <ul>
               <li>
-                <a href={`/orders`}>Orders</a>
+                <Hyperlink href="/orders" wide invert>
+                  Orders
+                </Hyperlink>
               </li>
               <li>
                 <Button onClick={SignOut} wide>
