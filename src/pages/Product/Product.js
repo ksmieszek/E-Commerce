@@ -13,6 +13,7 @@ import Suggestions from "components/suggestions/Suggestions";
 import RecentlyViewed from "components/recentlyViewed/RecentlyViewed";
 import Button from "components/button/Button";
 import AddedToCartModal from "components/modal/AddedToCartModal";
+import { ReactComponent as Arrow } from "assets/icons/arrow.svg";
 
 const schema = yup.object().shape({
   id: yup.string().trim().required(),
@@ -63,6 +64,13 @@ const Product = ({ match }) => {
   return (
     <ContentTemplate>
       <div className={styles.wrapper}>
+        <div className={styles.categories__links}>
+          <a href={`/products/${product?.sex}`}>{product?.sex}</a>
+          <Arrow className={styles.arrow} />
+          <a href={`/products/${product?.sex}/${product?.category}`}>{product?.category}</a>
+          <Arrow className={styles.arrow} />
+          <span>{product?.name}</span>
+        </div>
         <main className={styles.product__wrapper}>
           <ImageSlider sliderImages={sliderImages} />
           <div className={styles.product__properties}>
