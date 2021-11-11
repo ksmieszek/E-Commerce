@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateViewedProducts } from "store/unauthUserSlice";
 import { useAuth } from "hooks/useAuth";
 
-const RecentlyViewed = ({ product }) => {
+const RecentlyViewed = ({ product, setHideRecentlyViewed }) => {
   const [viewedProducts, setViewedProducts] = useState([]);
   const { uid, loading } = useAuth();
   const unauthUser = useSelector((state) => state.unauthUser);
@@ -18,6 +18,7 @@ const RecentlyViewed = ({ product }) => {
       let viewedProductsIds;
       if (uid === undefined) viewedProductsIds = unauthUser.viewedProducts;
       else viewedProductsIds = (await getDoc(doc(db, "users", uid))).data().viewedProducts;
+      if (viewedProductsIds.length > 0) setHideRecentlyViewed(false);
       //get products details
       (async () => {
         const viewedProductsDetails = [];

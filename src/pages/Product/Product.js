@@ -28,6 +28,7 @@ const Product = ({ match }) => {
   const [product, setProduct] = useState(null);
   const [sliderImages, setSliderImages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hideRecentlyViewed, setHideRecentlyViewed] = useState(true);
   let history = useHistory();
 
   useEffect(() => {
@@ -101,9 +102,9 @@ const Product = ({ match }) => {
           <h2>Similar styles</h2>
           <Suggestions products={products} product={product} />
         </section>
-        <section className={styles.more__products}>
+        <section className={`${styles.more__products} ${hideRecentlyViewed ? styles.hide : ""}`}>
           <h2>Your recently viewed products</h2>
-          <RecentlyViewed product={product} />
+          <RecentlyViewed product={product} setHideRecentlyViewed={setHideRecentlyViewed} />
         </section>
       </div>
       {isModalOpen && <AddedToCartModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}></AddedToCartModal>}

@@ -119,6 +119,10 @@
     display: flex;
     flex-direction: column;
 
+    &.hide {
+      display: none;
+    }
+
     h2 {
       font-size: 2rem;
     }
