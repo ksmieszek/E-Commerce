@@ -1,9 +1,12 @@
 import styles from "./Modal.module.scss";
 import Modal from "components/modal/Modal";
-import Button from "components/button/Button";
 import { ReactComponent as Checkmark } from "assets/icons/checkmark.svg";
+import { useAuth } from "hooks/useAuth";
+import Hyperlink from "components/button/Hyperlink";
 
 const CompletedOrderModal = ({ isModalOpen, setIsModalOpen }) => {
+  const { uid } = useAuth();
+
   return (
     <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
       <div className={styles.modal__content}>
@@ -13,7 +16,14 @@ const CompletedOrderModal = ({ isModalOpen, setIsModalOpen }) => {
         <div className={styles.subtitle}>Order Complete!</div>
         <div className={styles.text}>Thank you! Your order has been approved.</div>
         <div className={styles.buttons__wrapper}>
-          <Button onClick={() => (window.location = "/")}>Return to store</Button>
+          {uid !== undefined && (
+            <div className={styles.button}>
+              <Hyperlink href="/orders">Check your orders</Hyperlink>
+            </div>
+          )}
+          <Hyperlink href="/" invert>
+            Return to store
+          </Hyperlink>
         </div>
       </div>
     </Modal>

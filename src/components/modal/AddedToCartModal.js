@@ -20,17 +20,15 @@ const AddedToCartModal = ({ isModalOpen, setIsModalOpen }) => {
               Continue shopping
             </Button>
           </div>
-          <div className={styles.button}>
-            <Button
-              wide
-              onClick={() => {
-                setIsModalOpen(false);
-                history.push("/order");
-              }}
-            >
-              Go to the cart
-            </Button>
-          </div>
+          <Button
+            wide
+            onClick={() => {
+              setIsModalOpen(false);
+              history.push("/order");
+            }}
+          >
+            Go to the cart
+          </Button>
         </div>
       </div>
     </Modal>

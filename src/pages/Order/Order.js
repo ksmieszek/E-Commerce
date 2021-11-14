@@ -95,7 +95,8 @@ const Order = () => {
   };
 
   const redirectFn = () => {
-    window.location = "/";
+    if (uid === undefined) window.location = "/";
+    else window.location = "/orders";
   };
 
   return (
