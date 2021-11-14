@@ -1,0 +1,43 @@
+@use "sass/abstracts" as *;
+
+.wrapper {
+  font-size: 1.3rem;
+  font-weight: 400;
+
+  .title {
+    padding: 0 5px;
+  }
+
+  input {
+    padding: 8px 10px;
+    outline: none;
+    border: 1px solid #cbcbcb;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1.4rem;
+
+    &:focus {
+      border: 1px solid $blue-color;
+      box-shadow: 0 0px 5px 0px $blue-color;
+
+      &.invalid {
+        border: 1px solid red;
+        box-shadow: 0 0px 5px 0px red;
+      }
+    }
+
+    &.invalid {
+      border: 1px solid red;
+      color: red;
+    }
+  }
+
+  .error {
+    padding: 2px 5px 0;
+    color: red;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}

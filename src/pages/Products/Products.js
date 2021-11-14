@@ -79,9 +79,9 @@ const Products = () => {
       const productPrice = parseFloat(product.price);
       const priceFrom = parseFloat(prices["priceFrom"]);
       const priceTo = parseFloat(prices["priceTo"]);
-      if (hasPriceFrom && hasPriceTo) return productPrice > priceFrom && productPrice < priceTo;
-      if (hasPriceFrom) return productPrice > priceFrom;
-      if (hasPriceTo) return productPrice < priceTo;
+      if (hasPriceFrom && hasPriceTo) return productPrice >= priceFrom && productPrice <= priceTo;
+      if (hasPriceFrom) return productPrice >= priceFrom;
+      if (hasPriceTo) return productPrice <= priceTo;
     });
   }
 

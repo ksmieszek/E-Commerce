@@ -18,7 +18,7 @@ import { ReactComponent as Arrow } from "assets/icons/arrow.svg";
 const schema = yup.object().shape({
   id: yup.string().trim().required(),
   size: yup.mixed().oneOf(["S", "M", "L", "XL"]).required(),
-  quantity: yup.number().positive().integer().required(),
+  quantity: yup.number().positive().integer().required().typeError("Quantity must be a digit"),
 });
 
 const Product = ({ match }) => {
@@ -48,7 +48,13 @@ const Product = ({ match }) => {
     })();
   }, [UrlProductId]);
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       id: UrlProductId,
@@ -84,10 +90,11 @@ const Product = ({ match }) => {
                   {product?.sizes.map((item, index) => (
                     <div key={index} className={`${styles.size} ${watch("size") === item ? styles.active : ""}`}>
                       <input type="radio" name="size"></input>
-                      <label onClick={() => setValue("size", item)}>{item}</label>
+                      <label onClick={() => setValue("size", item, { shouldValidate: true })}>{item}</label>
                     </div>
                   ))}
                 </div>
+                <p className={styles.invalid__message}>{errors?.size?.message}</p>
               </div>
               <div className={styles.final__row}>
                 <input className={styles.quantity} type="number" {...register("quantity")} />
@@ -95,6 +102,7 @@ const Product = ({ match }) => {
                   Add to cart
                 </Button>
               </div>
+              <p className={styles.invalid__message}>{errors?.quantity?.message}</p>
             </form>
           </div>
         </main>

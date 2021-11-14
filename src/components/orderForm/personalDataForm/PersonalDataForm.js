@@ -1,18 +1,27 @@
 import styles from "./PersonalDataForm.module.scss";
 import { useAuth } from "hooks/useAuth";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
+import FormField from "components/formField/FormField";
 
 const schema = yup.object().shape({
   firstName: yup.string().trim().required(),
   surname: yup.string().trim().required(),
   email: yup.string().trim().email().required(),
-  phoneNumber: yup.string().trim().required(),
+  phone_number: yup
+    .string()
+    .trim()
+    .required()
+    .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
   street: yup.string().trim().required(),
-  no: yup.number().positive().integer().required(),
-  postalCode: yup.string().trim().required(),
+  no: yup.string().trim().required(),
+  postal_code: yup
+    .string()
+    .trim()
+    .required()
+    .matches(/^\d{2}-\d{3}$/, "Postal code must match the following pattern: 00-000"),
   city: yup.string().trim().required(),
 });
 
@@ -29,10 +38,10 @@ const PersonalDataForm = ({ setDisableNextStep }) => {
       firstName: orderPersData?.firstName || "",
       surname: orderPersData?.surname || "",
       email: orderPersData?.email || "",
-      phoneNumber: orderPersData?.phoneNumber || "",
+      phone_number: orderPersData?.phone_number || "",
       street: orderPersData?.street || "",
       no: orderPersData?.no || "",
-      postalCode: orderPersData?.postalCode || "",
+      postal_code: orderPersData?.postal_code || "",
       city: orderPersData?.city || "",
     },
   });
@@ -56,91 +65,81 @@ const PersonalDataForm = ({ setDisableNextStep }) => {
       <form>
         <div className={styles.input__group}>
           <div className={`${styles.input__box} ${styles[`flex-1`]}`}>
-            <label>
-              <span className={styles.input__title}>First name</span>
-              <Controller
-                name="firstName"
-                control={control}
-                render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-              />
-            </label>
+            <FormField
+              title="First name"
+              name="firstName"
+              control={control}
+              handleControllerChange={handleControllerChange}
+              trigger={trigger}
+              error={errors?.firstName}
+            />
           </div>
           <div className={`${styles.input__box} ${styles[`flex-1`]}`}>
-            <label>
-              <span className={styles.input__title}>Surname</span>
-              <Controller
-                name="surname"
-                control={control}
-                render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-              />
-            </label>
+            <FormField
+              title="Surname"
+              name="surname"
+              control={control}
+              handleControllerChange={handleControllerChange}
+              trigger={trigger}
+              error={errors?.surname}
+            />
           </div>
         </div>
         <div className={styles.input__box}>
-          <label>
-            <span className={styles.input__title}>Email</span>
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-            />
-          </label>
-          {errors?.email?.type === "required" && <p>This field is required</p>}
-          {errors?.email?.type === "email" && <p>Email not valid</p>}
+          <FormField
+            title="Email"
+            name="email"
+            control={control}
+            handleControllerChange={handleControllerChange}
+            trigger={trigger}
+            error={errors?.email}
+          />
         </div>
         <div className={styles.input__box}>
-          <label>
-            <span className={styles.input__title}>Phone number</span>
-            <Controller
-              name="phoneNumber"
-              control={control}
-              render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-            />
-          </label>
+          <FormField
+            title="Phone number"
+            name="phone_number"
+            control={control}
+            handleControllerChange={handleControllerChange}
+            trigger={trigger}
+            error={errors?.phone_number}
+          />
         </div>
         <div className={styles.input__group}>
           <div className={`${styles.input__box} ${styles[`flex-3`]}`}>
-            <label>
-              <span className={styles.input__title}>Street</span>
-              <Controller
-                name="street"
-                control={control}
-                render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-              />
-            </label>
+            <FormField
+              title="Street"
+              name="street"
+              control={control}
+              handleControllerChange={handleControllerChange}
+              trigger={trigger}
+              error={errors?.street}
+            />
           </div>
           <div className={`${styles.input__box} ${styles[`flex-1`]}`}>
-            <label>
-              <span className={styles.input__title}>No</span>
-              <Controller
-                name="no"
-                control={control}
-                render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-              />
-            </label>
+            <FormField title="No" name="no" control={control} handleControllerChange={handleControllerChange} trigger={trigger} errors={errors?.no} />
           </div>
         </div>
         <div className={styles.input__group}>
           <div className={`${styles.input__box} ${styles[`flex-2`]}`}>
-            <label>
-              <span className={styles.input__title}>Postal code</span>
-              <Controller
-                name="postalCode"
-                control={control}
-                render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-              />
-            </label>
+            <FormField
+              title="Postal code"
+              name="postal_code"
+              control={control}
+              handleControllerChange={handleControllerChange}
+              trigger={trigger}
+              error={errors?.postal_code}
+            />
           </div>
           <div className={`${styles.input__box} ${styles[`flex-4`]}`}>
-            <label>
-              <span className={styles.input__title}>City</span>
-              <Controller
-                name="city"
-                control={control}
-                render={({ field }) => <input {...field} onChange={(e) => handleControllerChange(e, field)} onBlur={() => trigger(field.name)} />}
-              />
-            </label>
-            {errors?.city?.type === "required" && <p>This field is required</p>}
+            <FormField
+              title="City"
+              name="city"
+              control={control}
+              handleControllerChange={handleControllerChange}
+              trigger={trigger}
+              error={errors?.city}
+            />
           </div>
         </div>
       </form>

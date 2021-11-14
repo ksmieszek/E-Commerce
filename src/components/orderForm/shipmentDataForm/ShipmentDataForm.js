@@ -27,7 +27,7 @@ const schema = yup.object().shape({
   shipment: yup.object({
     id: yup.string().required(),
     name: yup.string().required(),
-    price: yup.number().required(),
+    price: yup.number().positive().min(0).required(),
   }),
 });
 

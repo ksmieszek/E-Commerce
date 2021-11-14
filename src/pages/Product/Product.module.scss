@@ -112,6 +112,16 @@
     }
   }
 
+  .invalid__message {
+    padding: 2px 5px;
+    font-size: 1.4rem;
+    color: red;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
   .more__products {
     margin: 50px 0 10px;
     width: 100%;

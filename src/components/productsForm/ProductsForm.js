@@ -12,6 +12,7 @@ const schema = yup.object().shape({
   priceFrom: yup
     .number()
     .positive()
+    .min(0, '"Price from" must be greater than or equal to 0')
     .nullable()
     .notRequired()
     .transform(function (value, originalvalue) {
@@ -19,10 +20,9 @@ const schema = yup.object().shape({
     }),
   priceTo: yup
     .number()
-    .positive()
     .nullable()
     .notRequired()
-    .min(yup.ref("priceFrom"))
+    .min(yup.ref("priceFrom"), '"Price to" must be greater than or equal to "Price from"')
     .transform(function (value, originalvalue) {
       return this.isType(value) ? value : null;
     }),
@@ -34,7 +34,14 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   const [productsColors, setProductsColors] = useState([]);
   const [productsSizes, setProductsSizes] = useState([]);
   const { isSidebarVisible, makeSidebarInvisible } = useComponentPresence();
-  const { register, handleSubmit, control, getValues, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       priceFrom: null,
@@ -168,11 +175,26 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
             <button type="button" className={styles.filter__name} onClick={(e) => handleUnfold(e)}>
               Price
             </button>
+
             <div className={`${styles.filter__options} ${styles[`filter__options--price`]}`}>
-              <input className={styles.price} type="text" placeholder="from" {...register("priceFrom")} />
+              <input
+                className={`${styles.price} ${errors?.priceFrom !== undefined ? styles.invalid__input : ""}`}
+                type="number"
+                step="any"
+                placeholder="from"
+                {...register("priceFrom")}
+              />
               -
-              <input className={styles.price} type="text" placeholder="to" {...register("priceTo")} />
+              <input
+                className={`${styles.price} ${errors?.priceTo !== undefined ? styles.invalid__input : ""}`}
+                type="number"
+                step="any"
+                placeholder="to"
+                {...register("priceTo")}
+              />
             </div>
+            <p className={styles.invalid__message}>{errors?.priceFrom?.message}</p>
+            <p className={styles.invalid__message}>{errors?.priceTo?.message}</p>
           </div>
           {podcategoriesFields.length > 0 && <>{generateCheckboxes("Podcategories", podcategoriesFields, "podcategories", true)}</>}
           {sizesFields.length > 0 && <>{generateCheckboxes("Sizes", sizesFields, "sizes")}</>}

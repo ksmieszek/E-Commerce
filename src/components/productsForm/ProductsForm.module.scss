@@ -90,7 +90,6 @@
       display: none;
 
       .price {
-        // width: 120px;
         padding-left: 5px;
         outline: none;
         border: none;
@@ -98,6 +97,11 @@
         width: 35%;
         height: 30px;
         font-size: 1.6rem;
+
+        &.invalid__input {
+          border-bottom-color: red;
+          color: red;
+        }
       }
     }
   }
@@ -146,6 +150,12 @@
     }
   }
 
+  .invalid__message {
+    padding: 2px 20px;
+    font-size: 1.4rem;
+    color: red;
+  }
+
   @media only screen and (min-width: 1440px) {
     position: static;
     margin-right: 50px;
@@ -177,8 +187,6 @@
       }
 
       &__options {
-        padding-right: 20px;
-        padding-left: 20px;
         display: block;
 
         &--price {

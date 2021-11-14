@@ -8,7 +8,6 @@
 
   .input__group {
     display: flex;
-    align-items: center;
   }
 
   .input__box {
@@ -27,27 +26,6 @@
     }
     &.flex-4 {
       flex: 4;
-    }
-
-    .input__title {
-      padding: 0 5px;
-    }
-
-    input {
-      padding: 8px 10px;
-      outline: none;
-      border: 1px solid #cbcbcb;
-      width: 100%;
-      font-size: 1.4rem;
-
-      &:focus {
-        border: 1px solid $blue-color;
-      }
-    }
-
-    label {
-      font-size: 1.4rem;
-      font-weight: 400;
     }
   }
 }
