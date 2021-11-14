@@ -47,7 +47,7 @@ const CartProvider = ({ children }) => {
       const cartCopy = [...userCart];
       cartCopy[productIndexInCart].quantity = parseInt(cartCopy[productIndexInCart].quantity) + parseInt(quantity);
       updateDoc(doc(db, "users", uid), {
-        userCart: cartCopy,
+        cart: cartCopy,
       }).then(() => {
         setUserCart(cartCopy);
       });
