@@ -53,7 +53,8 @@ const Product = ({ match }) => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -67,6 +68,10 @@ const Product = ({ match }) => {
     addToCart(data);
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) reset();
+  }, [isSubmitSuccessful]);
 
   return (
     <ContentTemplate>

@@ -12,6 +12,7 @@ import StepButtons from "components/orderForm/stepsButtons/StepButtons";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import LackOfItemsInfo from "components/lackOfItemsInfo/LackOfItemsInfo";
 import CompletedOrderModal from "components/modal/CompletedOrderModal";
+import { useForm } from "react-hook-form";
 
 const Order = () => {
   const [step, setStep] = useState(1);
@@ -25,14 +26,20 @@ const Order = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderCompleted, setOrderCompleted] = useState(false);
 
+  const {
+    handleSubmit,
+    formState: { isSubmitted, isSubmitting },
+  } = useForm();
+
   const handleStep = (action) => {
     if (step === 1 && action === -1) return;
     if (step === 4 && action === 1) {
-      handleSubmit();
+      handleSubmit(onSubmit)();
       return;
     }
     setStep(step + action);
   };
+
   const nextStepButtonTexts = ["Continue to delivery", "Continue to shipping", "Check order", "Pay & Order"];
   const StepPagesTitles = ["Cart", "Delivery address", "Shipping", "Check order"];
 
@@ -57,7 +64,8 @@ const Order = () => {
     setTotal((parseFloat(cartValue) + parseFloat(shipment.price)).toFixed(2));
   }, [shipment]);
 
-  const handleSubmit = async () => {
+  const onSubmit = async () => {
+    if (isSubmitted || isSubmitting) return;
     savePersonalOrderData();
 
     //add order
