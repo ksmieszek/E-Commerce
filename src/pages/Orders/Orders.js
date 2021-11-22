@@ -43,15 +43,17 @@ const Orders = () => {
                 <div className={styles.header}>Action</div>
               </div>
               <ul className={styles.list}>
-                {orders.map((item, index) => (
-                  <li className={styles.list__item} key={index}>
-                    <div>{item.date}</div>
-                    <div>{item.totalValue} PLN</div>
-                    <div>
-                      <a href={`order/${item.id}`}>Preview</a>
-                    </div>
-                  </li>
-                ))}
+                {orders
+                  .map((item, index) => (
+                    <li className={styles.list__item} key={index}>
+                      <div>{item.date}</div>
+                      <div>{item.totalValue} PLN</div>
+                      <div>
+                        <a href={`order/${item.id}`}>Preview</a>
+                      </div>
+                    </li>
+                  ))
+                  .reverse()}
               </ul>
             </>
           ) : (
