@@ -1,4 +1,3 @@
-// import "./ImageSlider.scss";
 import styles from "./ImageSlider.module.scss";
 import { useState, useEffect, useRef } from "react";
 
