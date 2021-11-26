@@ -18,7 +18,6 @@ const RecentlyViewed = ({ product, setHideRecentlyViewed }) => {
       let viewedProductsIds;
       if (uid === undefined) viewedProductsIds = unauthUser.viewedProducts;
       else viewedProductsIds = (await getDoc(doc(db, "users", uid))).data().viewedProducts;
-      if (viewedProductsIds.length > 0) setHideRecentlyViewed(false);
       //get products details
       (async () => {
         const viewedProductsDetails = [];
@@ -40,8 +39,15 @@ const RecentlyViewed = ({ product, setHideRecentlyViewed }) => {
       const repetitionIndex = viewedProductsIds.findIndex((item) => item === product.id);
       //delete if exists
       if (repetitionIndex !== -1) viewedProductsIds.splice(repetitionIndex, 1);
+      //display results if exists
+      if (viewedProductsIds.length > 0) setHideRecentlyViewed(false);
       //add to table
-      viewedProductsIds.unshift(product.id);
+      if (viewedProductsIds.length === 0) {
+        viewedProductsIds = [];
+        viewedProductsIds.push(product.id);
+      } else {
+        viewedProductsIds.unshift(product.id);
+      }
       //send data and limit to 6 elements in case we enter product page that was already in
       if (uid === undefined) dispatch(updateViewedProducts(viewedProductsIds.slice(0, 6)));
       else setDoc(doc(db, "users", uid), { viewedProducts: viewedProductsIds.slice(0, 6) }, { merge: true });
