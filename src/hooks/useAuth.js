@@ -3,7 +3,6 @@ import { db } from "firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { saveUser } from "store/authUserSlice";
 import { saveUnauthPersOrderData } from "store/unauthUserSlice";
 
 const auth = getAuth();
@@ -12,7 +11,6 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  const userId = useSelector((state) => state.authUser.userId);
   const unauthUser = useSelector((state) => state.unauthUser);
   const dispatch = useDispatch();
   const [uid, setUid] = useState(undefined);
@@ -20,62 +18,42 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const findUser = await getDoc(doc(db, `users`, userId));
-        if (findUser.exists()) {
-          setUid(userId);
-          setOrderPersData(findUser.data().orderPersData);
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-        }
-      } catch (err) {
+    const observer = auth.onAuthStateChanged(async (user) => {
+      if (user !== null) {
+        setUid(user.uid);
+        const findUser = await getDoc(doc(db, `users`, user.uid));
+        setOrderPersData(findUser.data().orderPersData);
+      } else {
         setUid(undefined);
         setOrderPersData(unauthUser.orderPersData);
-        dispatch(saveUser(""));
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
       }
-    })();
-  }, [userId]);
+      setLoading(false);
+    });
+    return observer;
+  }, []);
 
   const SignIn = () => {
+    provider.setCustomParameters({ prompt: "select_account" });
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        // console.log("result", result);
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // console.log("token", token);
-        // The signed-in user info.
         setLoading(true);
-        const user = result.user;
-        const { uid, displayName, email } = user;
-
+        const uid = result.user.uid;
         const findUser = await getDoc(doc(db, `users`, uid));
-        if (findUser.exists()) {
-          dispatch(saveUser({ uid, displayName, email }));
-          window.location = "/";
-          return;
-        }
         //if user logs in first time
         if (!findUser.exists()) {
           try {
             await setDoc(doc(db, "users", uid), {
-              displayName,
-              email,
               cart: [],
               orderPersData: {},
               viewedProducts: [],
               orders: [],
             });
-            dispatch(saveUser({ uid, displayName, email }));
             window.location = "/";
           } catch (err) {
             console.log(err);
           }
+        } else {
+          window.location = "/";
         }
       })
       .catch((error) => {
@@ -95,7 +73,6 @@ const AuthProvider = ({ children }) => {
       .signOut()
       .then(() => {
         setLoading(true);
-        dispatch(saveUser(""));
         window.location = "/";
       })
       .catch((error) => {

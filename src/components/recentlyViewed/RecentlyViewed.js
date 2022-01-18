@@ -16,8 +16,8 @@ const RecentlyViewed = ({ product, setHideRecentlyViewed }) => {
     if (product === null || loading) return;
     (async () => {
       let viewedProductsIds;
-      if (uid === undefined) viewedProductsIds = unauthUser.viewedProducts;
-      else viewedProductsIds = (await getDoc(doc(db, "users", uid))).data().viewedProducts;
+      if (uid === undefined) viewedProductsIds = [...unauthUser.viewedProducts];
+      else viewedProductsIds = [...(await getDoc(doc(db, "users", uid))).data().viewedProducts];
       //get products details
       (async () => {
         const viewedProductsDetails = [];

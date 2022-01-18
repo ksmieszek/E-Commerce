@@ -37,7 +37,7 @@ const Home = () => {
         <Splide options={splideOptions}>
           <li className="splide__slide">
             <picture>
-              <source media="(max-width: 500px)" srcset={SlideFirstSmall} />
+              <source media="(max-width: 500px)" srcSet={SlideFirstSmall} />
               <img src={SlideFirst} alt="" />
             </picture>
             <div className="headers">
@@ -53,7 +53,7 @@ const Home = () => {
           </li>
           <li className="splide__slide">
             <picture>
-              <source media="(max-width: 500px)" srcset={SlideSecondSmall} />
+              <source media="(max-width: 500px)" srcSet={SlideSecondSmall} />
               <img src={SlideSecond} alt="" />
             </picture>
             <div className="headers">
@@ -66,7 +66,7 @@ const Home = () => {
           </li>
           <li className="splide__slide">
             <picture>
-              <source media="(max-width: 500px)" srcset={SlideThirdSmall} />
+              <source media="(max-width: 500px)" srcSet={SlideThirdSmall} />
               <img src={SlideThird} alt="" />
             </picture>
             <div className="headers">
@@ -85,35 +85,35 @@ const Home = () => {
       <div className={styles.tiles}>
         <a href="/" className={styles.tile}>
           <picture>
-            <source media="(max-width: 500px)" srcset={TileFirstSmall} />
+            <source media="(max-width: 500px)" srcSet={TileFirstSmall} />
             <img src={TileFirst} alt="" />
           </picture>
           <div className={styles.title}>Jackets</div>
         </a>
         <a href="/" className={styles.tile}>
           <picture>
-            <source media="(max-width: 500px)" srcset={TileSecondSmall} />
+            <source media="(max-width: 500px)" srcSet={TileSecondSmall} />
             <img src={TileSecond} alt="" />
           </picture>
           <div className={styles.title}>Boots</div>
         </a>
         <a href="/" className={styles.tile}>
           <picture>
-            <source media="(max-width: 500px)" srcset={TileThirdSmall} />
+            <source media="(max-width: 500px)" srcSet={TileThirdSmall} />
             <img src={TileThird} alt="" />
           </picture>
           <div className={styles.title}>Suits</div>
         </a>
         <a href="/" className={styles.tile}>
           <picture>
-            <source media="(max-width: 500px)" srcset={TileFourthSmall} />
+            <source media="(max-width: 500px)" srcSet={TileFourthSmall} />
             <img src={TileFourth} alt="" />
           </picture>
           <div className={styles.title}>Businesswear</div>
         </a>
         <a href="/" className={styles.tile}>
           <picture>
-            <source media="(max-width: 500px)" srcset={TileFifthSmall} />
+            <source media="(max-width: 500px)" srcSet={TileFifthSmall} />
             <img src={TileFifth} alt="" />
           </picture>
           <div className={styles.title}>Accessories</div>
