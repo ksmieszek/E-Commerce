@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import "./Swiper.scss";
 import styles from "./Swiper.module.scss";
 
 const Swiper = ({ items }) => {

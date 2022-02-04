@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import menuLinks from "assets/data/menuLinks";
+import { db } from "firebase";
+import { doc, getDoc } from "firebase/firestore";
 import MobileElements from "./MobileElements";
 import styles from "./Navigation.module.scss";
 import { useComponentPresence } from "hooks/useComponentPresence";
@@ -9,6 +10,20 @@ const MainMenu = () => {
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
   const { isNavVisible, makeNavVisible, makeNavInvisible } = useComponentPresence();
+  const [menu, setMenu] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const mainMenu = (await getDoc(doc(db, "menus", "main"))).data();
+      const mainMenuArray = Object.values(mainMenu);
+      mainMenuArray
+        .sort((a, b) => a.order - b.order)
+        .forEach((collection) =>
+          collection.categories?.sort((a, b) => a.order - b.order).forEach((category) => category.podcategories?.sort((a, b) => a.order - b.order))
+        );
+      setMenu(mainMenuArray);
+    })();
+  }, []);
 
   useEffect(() => {
     const menuRefCopy = menuRef.current;
@@ -40,7 +55,7 @@ const MainMenu = () => {
       <div className={styles.mainMenu__container}>
         <MobileElements>Choose category</MobileElements>
         <ul className={styles.submenus}>
-          {menuLinks.map((submenu, index) =>
+          {menu.map((submenu, index) =>
             submenu.categories?.length > 0 ? (
               <li className={styles.submenus__item} key={index}>
                 <Link to={submenu.link}>{submenu.title}</Link>

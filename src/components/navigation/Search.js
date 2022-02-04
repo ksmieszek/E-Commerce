@@ -1,25 +1,76 @@
 import { useState, useEffect, useRef } from "react";
 import debounce from "lodash.debounce";
-import { searchResults, searchPodcategories } from "assets/data/searchResults";
+import { db } from "firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { ReactComponent as Glass } from "assets/icons/magnifying-glass.svg";
 import styles from "./Navigation.module.scss";
 
 const Search = () => {
   const inputRef = useRef(null);
-  const [categoriesResults, setCategoriesResults] = useState([]);
+  const [suggestionsCollection, setSuggestionsCollection] = useState(undefined);
+  const [mainCategoriesCollection, setMainCategoriesCollection] = useState(undefined);
+  const [mainCategoriesResults, setMainCategoriesResults] = useState([]);
   const [suggestionsResults, setSuggestionsResults] = useState([]);
   const debouncedKeyupListener = debounce(handleSearch, 400);
 
   useEffect(() => {
+    generateSearchCollections();
+  }, []);
+
+  useEffect(() => {
+    if (suggestionsCollection === undefined || mainCategoriesCollection === undefined) return;
     const refCopy = inputRef.current;
     refCopy.addEventListener("keyup", debouncedKeyupListener);
     return () => refCopy.removeEventListener("keyup", debouncedKeyupListener);
-  }, []);
+  }, [suggestionsCollection, mainCategoriesCollection]);
+
+  const generateSearchCollections = async () => {
+    const catPodcatRelations = (await getDoc(doc(db, "relations", "categoryPodcategory"))).data();
+
+    const suggestionsObject = {};
+    for (const [categoryKey, categoryValue] of Object.entries(catPodcatRelations)) {
+      for (const [podcategoryKey, podcategoryValue] of Object.entries(categoryValue.podcategories)) {
+        suggestionsObject[podcategoryKey] = {
+          name: podcategoryValue,
+          route: `/${categoryKey}?podcategory=${podcategoryKey}`,
+        };
+      }
+    }
+
+    const mainCategoriesArray = [];
+    for (const [categoryKey, categoryValue] of Object.entries(catPodcatRelations)) {
+      const podcategoriesOfCategory = [];
+      for (const key of Object.keys(categoryValue.podcategories)) podcategoriesOfCategory.push(suggestionsObject[key]);
+      mainCategoriesArray.push({
+        category: {
+          categoryName: `${categoryValue.name}`,
+          route: `/${categoryKey}`,
+          podcategories: podcategoriesOfCategory,
+        },
+        mainResults: [
+          {
+            name: "All categories",
+            route: `/${categoryKey}`,
+          },
+          {
+            name: "Men",
+            route: `/men/${categoryKey}`,
+          },
+          {
+            name: "Women",
+            route: `/women/${categoryKey}`,
+          },
+        ],
+      });
+    }
+    setSuggestionsCollection(suggestionsObject);
+    setMainCategoriesCollection(mainCategoriesArray);
+  };
 
   function handleSearch() {
     const searchValue = inputRef.current.value;
     if (searchValue.length === 0) {
-      setCategoriesResults([]);
+      setMainCategoriesResults([]);
       setSuggestionsResults([]);
     }
     if (searchValue.length < 2) return;
@@ -28,8 +79,8 @@ const Search = () => {
 
   function findMatches() {
     const regex = new RegExp(inputRef.current.value, "gi");
-    setCategoriesResults(searchResults.filter((item) => item.category.categoryName.match(regex)));
-    setSuggestionsResults(Object.values(searchPodcategories).filter((item) => item.name.match(regex)));
+    setMainCategoriesResults(mainCategoriesCollection.filter((item) => item.category.categoryName.match(regex)));
+    setSuggestionsResults(Object.values(suggestionsCollection).filter((item) => item.name.match(regex)));
   }
 
   function displayMainResults(matches) {
@@ -47,7 +98,7 @@ const Search = () => {
     const allResults = new Map();
     suggestionsResults.forEach((item) => allResults.set(item.name, item.route));
     if (inputRef.current.value.length >= 4)
-      categoriesResults.map((item) => item.category.podcategories.map((podcategory) => allResults.set(podcategory.name, podcategory.route)));
+      mainCategoriesResults.map((item) => item.category.podcategories.map((podcategory) => allResults.set(podcategory.name, podcategory.route)));
     return Array.from(allResults).map(([name, route], index) => (
       <li key={index}>
         <a href={`/products${route}`}>{highlightMatchingString(name)}</a>
@@ -77,7 +128,7 @@ const Search = () => {
         <Glass />
       </button>
       <div className={styles.search__results}>
-        {categoriesResults.length === 0 && suggestionsResults.length === 0 ? (
+        {mainCategoriesResults.length === 0 && suggestionsResults.length === 0 ? (
           <>
             <div className={styles.header}>Shortcuts</div>
             <ul>
@@ -94,10 +145,10 @@ const Search = () => {
           </>
         ) : (
           <>
-            {categoriesResults.length > 0 && inputRef.current.value.length >= 4 && (
+            {mainCategoriesResults.length > 0 && inputRef.current.value.length >= 4 && (
               <>
                 <div className={styles.header}>Search results in categories</div>
-                {categoriesResults.map((category, index) => (
+                {mainCategoriesResults.map((category, index) => (
                   <ul key={index}>{displayMainResults(category)}</ul>
                 ))}
               </>
