@@ -20,8 +20,12 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const observer = auth.onAuthStateChanged(async (user) => {
       if (user !== null) {
-        setUid(user.uid);
         const findUser = await getDoc(doc(db, `users`, user.uid));
+        if (!findUser.exists()) {
+          SignOut();
+          return;
+        }
+        setUid(user.uid);
         setOrderPersData(findUser.data().orderPersData);
       } else {
         setUid(undefined);
@@ -34,41 +38,29 @@ const AuthProvider = ({ children }) => {
 
   const SignIn = () => {
     provider.setCustomParameters({ prompt: "select_account" });
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        setLoading(true);
-        const uid = result.user.uid;
-        const findUser = await getDoc(doc(db, `users`, uid));
-        //if user logs in first time
-        if (!findUser.exists()) {
-          try {
-            await setDoc(doc(db, "users", uid), {
-              cart: [],
-              orderPersData: {},
-              viewedProducts: [],
-              orders: [],
-            });
-            window.location = "/";
-          } catch (err) {
-            console.log(err);
-          }
-        } else {
-          window.location = "/";
-        }
-      })
-      .catch((error) => {});
+    signInWithPopup(auth, provider).then(async (result) => {
+      setLoading(true);
+      const uid = result.user.uid;
+      const findUser = await getDoc(doc(db, `users`, uid));
+      //if user logs in first time
+      if (!findUser.exists()) {
+        await setDoc(doc(db, "users", uid), {
+          cart: [],
+          orderPersData: {},
+          viewedProducts: [],
+          orders: [],
+          email: result.user.email,
+          roles: { admin: false },
+        });
+        window.location = "/";
+      } else {
+        window.location = "/";
+      }
+    });
   };
 
   const SignOut = async () => {
-    auth
-      .signOut()
-      .then(() => {
-        setLoading(true);
-        window.location = "/";
-      })
-      .catch((error) => {
-        console.log("An error happened.");
-      });
+    auth.signOut().then(() => (window.location = "/"));
   };
 
   const savePersonalOrderData = () => {

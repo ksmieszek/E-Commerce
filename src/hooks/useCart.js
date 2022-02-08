@@ -54,19 +54,15 @@ const CartProvider = ({ children }) => {
     } else {
       const idCartProduct = Date.now();
       const newProduct = { idCartProduct, id, size, quantity: parseInt(quantity) };
-      try {
-        await setDoc(
-          doc(db, "users", uid),
-          {
-            cart: arrayUnion(newProduct),
-          },
-          { merge: true }
-        ).then(() => {
-          setUserCart([...userCart, newProduct]);
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      await setDoc(
+        doc(db, "users", uid),
+        {
+          cart: arrayUnion(newProduct),
+        },
+        { merge: true }
+      ).then(() => {
+        setUserCart([...userCart, newProduct]);
+      });
     }
   };
 

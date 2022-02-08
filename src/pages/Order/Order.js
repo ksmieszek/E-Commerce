@@ -80,7 +80,6 @@ const Order = () => {
       date: new Date(),
       totalValue: total,
     });
-    console.log("Document written with ID: ", docRef.id);
 
     // add to users order history if logged in
     if (uid !== undefined)
