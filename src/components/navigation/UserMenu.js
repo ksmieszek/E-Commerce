@@ -14,7 +14,7 @@ const UserMenu = () => {
 
   return (
     <div className={styles.userMenu}>
-      <Link className={styles.userMenu__icon} to="/404">
+      <Link className={styles.userMenu__icon} to="/wishlist">
         <img src={heartIcon} alt="" />
       </Link>
       <div className={`${styles.userMenu__icon} ${styles.user}`}>

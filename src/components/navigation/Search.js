@@ -133,13 +133,13 @@ const Search = () => {
             <div className={styles.header}>Shortcuts</div>
             <ul>
               <li className={styles.shortcut}>
-                <a href="/404">Shipping</a>
+                <a href="/shipping">Shipping</a>
               </li>
               <li className={styles.shortcut}>
-                <a href="/404">Returns & Refunds</a>
+                <a href="/returns-and-refunds">Returns & Refunds</a>
               </li>
               <li className={styles.shortcut}>
-                <a href="/404">FAQs</a>
+                <a href="/faq">FAQs</a>
               </li>
             </ul>
           </>
