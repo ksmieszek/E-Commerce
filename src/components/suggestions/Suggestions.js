@@ -6,11 +6,11 @@ const Suggestions = ({ products, product }) => {
 
   useEffect(() => {
     if (product === null) return;
-    const { sex, category, podcategory } = product;
+    const { collection, category, podcategory } = product;
     const sameProducts = [];
     const similarProducts = [];
     products.forEach((item) => {
-      if (item.category.includes(...category) && item.sex.includes(...sex) && item !== product) {
+      if (item.category.includes(...category) && item.collection.includes(...collection) && item !== product) {
         if (item.podcategory.includes(...podcategory)) {
           sameProducts.push(item);
           return;

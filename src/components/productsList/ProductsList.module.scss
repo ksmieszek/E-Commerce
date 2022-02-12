@@ -19,9 +19,13 @@
 
   .product {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
     &__images {
       width: 100%;
+      flex: 1;
+      display: flex;
 
       &:hover {
         .image__front {

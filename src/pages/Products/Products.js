@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNonInitialEffect } from "hooks/useNonInitialEffect";
-import { useLocation, useHistory } from "react-router";
+import { useLocation } from "react-router";
 import styles from "./Products.module.scss";
 import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import ProductsList from "components/productsList/ProductsList";
@@ -11,7 +11,6 @@ import { collection, getDocs } from "firebase/firestore";
 
 const Products = () => {
   let location = useLocation();
-  let history = useHistory();
   const [filteredProductsByPath, setFilteredProductsByPath] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -26,10 +25,7 @@ const Products = () => {
     (async () => {
       const products = await fetchProducts();
       const filteredByPath = filterByPathname(products);
-      if (filteredByPath.length === 0) {
-        history.push("/404");
-        return;
-      }
+      if (filteredByPath.length === 0) return;
       setFilteredProductsByPath(filteredByPath);
       filterBySearchQuery(filteredByPath);
     })();

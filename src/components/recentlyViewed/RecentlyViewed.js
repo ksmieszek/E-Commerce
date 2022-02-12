@@ -24,10 +24,12 @@ const RecentlyViewed = ({ product, setHideRecentlyViewed }) => {
         await Promise.all(
           [...viewedProductsIds].map(async (productId) => {
             const querySnapshot = await getDoc(doc(db, "products", productId));
-            const { frontImage, name, price } = querySnapshot.data();
-            const productInfo = { id: productId, frontImage, name, price };
-            //if we are on the product page that was already in, dont display that product
-            if (productId !== product.id) viewedProductsDetails.push(productInfo);
+            if (querySnapshot.data() !== undefined) {
+              const { frontImage, name, price } = querySnapshot.data();
+              const productInfo = { id: productId, frontImage, name, price };
+              //if we are on the product page that was already in, dont display that product
+              if (productId !== product.id) viewedProductsDetails.push(productInfo);
+            }
           })
         );
         //limimt to 5 items

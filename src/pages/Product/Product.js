@@ -77,9 +77,9 @@ const Product = ({ match }) => {
     <ContentTemplate>
       <div className={styles.wrapper}>
         <div className={styles.categories__links}>
-          <a href={`/products/${product?.sex}`}>{product?.sex}</a>
+          <a href={`/products/${product?.collection}`}>{product?.collection}</a>
           <Arrow className={styles.arrow} />
-          <a href={`/products/${product?.sex}/${product?.category}`}>{product?.category}</a>
+          <a href={`/products/${product?.collection}/${product?.category}`}>{product?.category}</a>
           <Arrow className={styles.arrow} />
           <span>{product?.name}</span>
         </div>

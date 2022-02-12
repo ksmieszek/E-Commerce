@@ -10,14 +10,14 @@ const schema = yup.object().shape({
   firstName: yup.string().trim().required(),
   surname: yup.string().trim().required(),
   email: yup.string().trim().email().required(),
-  phone_number: yup
+  phoneNumber: yup
     .string()
     .trim()
     .required()
     .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
   street: yup.string().trim().required(),
   no: yup.string().trim().required(),
-  postal_code: yup
+  postalCode: yup
     .string()
     .trim()
     .required()
@@ -38,10 +38,10 @@ const PersonalDataForm = ({ setDisableNextStep }) => {
       firstName: orderPersData?.firstName || "",
       surname: orderPersData?.surname || "",
       email: orderPersData?.email || "",
-      phone_number: orderPersData?.phone_number || "",
+      phoneNumber: orderPersData?.phoneNumber || "",
       street: orderPersData?.street || "",
       no: orderPersData?.no || "",
-      postal_code: orderPersData?.postal_code || "",
+      postalCode: orderPersData?.postalCode || "",
       city: orderPersData?.city || "",
     },
   });
@@ -98,11 +98,11 @@ const PersonalDataForm = ({ setDisableNextStep }) => {
         <div className={styles.input__box}>
           <FormField
             title="Phone number"
-            name="phone_number"
+            name="phoneNumber"
             control={control}
             handleControllerChange={handleControllerChange}
             trigger={trigger}
-            error={errors?.phone_number}
+            error={errors?.phoneNumber}
           />
         </div>
         <div className={styles.input__group}>
@@ -124,11 +124,11 @@ const PersonalDataForm = ({ setDisableNextStep }) => {
           <div className={`${styles.input__box} ${styles[`flex-2`]}`}>
             <FormField
               title="Postal code"
-              name="postal_code"
+              name="postalCode"
               control={control}
               handleControllerChange={handleControllerChange}
               trigger={trigger}
-              error={errors?.postal_code}
+              error={errors?.postalCode}
             />
           </div>
           <div className={`${styles.input__box} ${styles[`flex-4`]}`}>
