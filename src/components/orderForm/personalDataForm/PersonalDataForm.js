@@ -7,20 +7,20 @@ import { useEffect } from "react";
 import FormField from "components/formField/FormField";
 
 const schema = yup.object().shape({
-  firstName: yup.string().trim().required(),
+  firstName: yup.string().trim().required("First name is a required field"),
   surname: yup.string().trim().required(),
   email: yup.string().trim().email().required(),
   phoneNumber: yup
     .string()
     .trim()
-    .required()
+    .required("Phone number is a required field")
     .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
   street: yup.string().trim().required(),
   no: yup.string().trim().required(),
   postalCode: yup
     .string()
     .trim()
-    .required()
+    .required("Postal code is a required field")
     .matches(/^\d{2}-\d{3}$/, "Postal code must match the following pattern: 00-000"),
   city: yup.string().trim().required(),
 });
@@ -117,7 +117,7 @@ const PersonalDataForm = ({ setDisableNextStep }) => {
             />
           </div>
           <div className={`${styles.input__box} ${styles[`flex-1`]}`}>
-            <FormField title="No" name="no" control={control} handleControllerChange={handleControllerChange} trigger={trigger} errors={errors?.no} />
+            <FormField title="No" name="no" control={control} handleControllerChange={handleControllerChange} trigger={trigger} error={errors?.no} />
           </div>
         </div>
         <div className={styles.input__group}>

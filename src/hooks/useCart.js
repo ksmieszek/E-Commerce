@@ -66,7 +66,7 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  const increaseQuantity = async (productCartId) => {
+  const increaseQuantity = (productCartId) => {
     if (uid === undefined) {
       dispatch(unauthIncreaseQuantity(productCartId));
       return;
@@ -81,7 +81,7 @@ const CartProvider = ({ children }) => {
     });
   };
 
-  const decreaseQuantity = async (productCartId) => {
+  const decreaseQuantity = (productCartId) => {
     if (uid === undefined) {
       dispatch(unauthDecreaseQuantity(productCartId));
       return;
@@ -100,7 +100,7 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  const deleteFromCart = async (productCartId) => {
+  const deleteFromCart = (productCartId) => {
     if (uid === undefined) {
       dispatch(unauthDeleteFromCart(productCartId));
       return;
@@ -129,28 +129,24 @@ const CartProvider = ({ children }) => {
 
   const fetchAllCartProductsInfo = async (items = userCart) => {
     const cartCopy = [];
-    await (async () => {
-      await Promise.all(
-        [...items].map(async (item) => {
-          const querySnapshot = await getDoc(doc(db, "products", item.id));
-          cartCopy.push({ ...querySnapshot.data(), ...item });
-        })
-      );
-    })();
+    await Promise.all(
+      [...items].map(async (item) => {
+        const querySnapshot = await getDoc(doc(db, "products", item.id));
+        cartCopy.push({ ...querySnapshot.data(), ...item });
+      })
+    );
     return cartCopy;
   };
 
   const getCartValue = async (items = userCart) => {
     let cartValue = 0;
-    await (async () => {
-      await Promise.all(
-        [...items].map(async (item) => {
-          const querySnapshot = await getDoc(doc(db, "products", item.id));
-          const { price } = querySnapshot.data();
-          cartValue = cartValue + price * item.quantity;
-        })
-      );
-    })();
+    await Promise.all(
+      [...items].map(async (item) => {
+        const querySnapshot = await getDoc(doc(db, "products", item.id));
+        const { price } = querySnapshot.data();
+        cartValue = cartValue + price * item.quantity;
+      })
+    );
     return cartValue.toFixed(2);
   };
 

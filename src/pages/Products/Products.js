@@ -16,12 +16,6 @@ const Products = () => {
 
   useEffect(() => {
     if (location.pathname === "") return;
-    async function fetchProducts() {
-      const products = [];
-      const querySnapshot = await getDocs(collection(db, "products"));
-      querySnapshot.forEach((doc) => products.push(Object.assign(doc.data(), { id: doc.id })));
-      return products;
-    }
     (async () => {
       const products = await fetchProducts();
       const filteredByPath = filterByPathname(products);
@@ -34,6 +28,13 @@ const Products = () => {
   useNonInitialEffect(() => {
     filterBySearchQuery(filteredProductsByPath);
   }, [location.search]);
+
+  async function fetchProducts() {
+    const products = [];
+    const querySnapshot = await getDocs(collection(db, "products"));
+    querySnapshot.forEach((doc) => products.push(Object.assign(doc.data(), { id: doc.id })));
+    return products;
+  }
 
   function getSearchQueryValues() {
     let priceArr = [];

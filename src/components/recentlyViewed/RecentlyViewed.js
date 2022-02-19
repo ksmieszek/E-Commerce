@@ -19,22 +19,20 @@ const RecentlyViewed = ({ product, setHideRecentlyViewed }) => {
       if (uid === undefined) viewedProductsIds = [...unauthUser.viewedProducts];
       else viewedProductsIds = [...(await getDoc(doc(db, "users", uid))).data().viewedProducts];
       //get products details
-      (async () => {
-        const viewedProductsDetails = [];
-        await Promise.all(
-          [...viewedProductsIds].map(async (productId) => {
-            const querySnapshot = await getDoc(doc(db, "products", productId));
-            if (querySnapshot.data() !== undefined) {
-              const { frontImage, name, price } = querySnapshot.data();
-              const productInfo = { id: productId, frontImage, name, price };
-              //if we are on the product page that was already in, dont display that product
-              if (productId !== product.id) viewedProductsDetails.push(productInfo);
-            }
-          })
-        );
-        //limimt to 5 items
-        setViewedProducts(viewedProductsDetails.slice(0, 5));
-      })();
+      const viewedProductsDetails = [];
+      await Promise.all(
+        [...viewedProductsIds].map(async (productId) => {
+          const querySnapshot = await getDoc(doc(db, "products", productId));
+          if (querySnapshot.data() !== undefined) {
+            const { frontImage, name, price } = querySnapshot.data();
+            const productInfo = { id: productId, frontImage, name, price };
+            //if we are on the product page that was already in, dont display that product
+            if (productId !== product.id) viewedProductsDetails.push(productInfo);
+          }
+        })
+      );
+      //limimt to 5 items
+      setViewedProducts(viewedProductsDetails.slice(0, 5));
 
       //add product to viewed products
       //search for repetition

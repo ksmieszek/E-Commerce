@@ -59,9 +59,7 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  const SignOut = async () => {
-    auth.signOut().then(() => (window.location = "/"));
-  };
+  const SignOut = () => auth.signOut().then(() => (window.location = "/"));
 
   const savePersonalOrderData = () => {
     if (uid === undefined) dispatch(saveUnauthPersOrderData(orderPersData));

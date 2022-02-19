@@ -17,34 +17,31 @@ import CartProvider from "hooks/useCart";
 import AuthProvider from "hooks/useAuth";
 import MainTemplate from "templates/mainTemplate/MainTemplate";
 
-const Root = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AuthProvider>
-          <CartProvider>
-            <OverlayProvider>
-              <ComponentPresenceProvider>
-                <Router>
-                  <MainTemplate>
-                    <Switch>
-                      <Route exact path="/" component={Home} />
-                      <Route path="/products/:query" component={Products} />
-                      <Route path="/product/:id" component={Product} />
-                      <Route path="/orders" component={Orders} />
-                      <Route exact path="/order" component={Order} />
-                      <Route path="/order/:id" component={PreviousOrder} />
-                      <Route component={NotFound} />
-                    </Switch>
-                  </MainTemplate>
-                </Router>
-              </ComponentPresenceProvider>
-            </OverlayProvider>
-          </CartProvider>
-        </AuthProvider>
-      </PersistGate>
-    </Provider>
-  );
-};
-
+const Root = () => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <AuthProvider>
+        <CartProvider>
+          <OverlayProvider>
+            <ComponentPresenceProvider>
+              <Router>
+                <MainTemplate>
+                  <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/products/:query" component={Products} />
+                    <Route path="/product/:id" component={Product} />
+                    <Route path="/orders" component={Orders} />
+                    <Route exact path="/order" component={Order} />
+                    <Route path="/order/:id" component={PreviousOrder} />
+                    <Route component={NotFound} />
+                  </Switch>
+                </MainTemplate>
+              </Router>
+            </ComponentPresenceProvider>
+          </OverlayProvider>
+        </CartProvider>
+      </AuthProvider>
+    </PersistGate>
+  </Provider>
+);
 export default Root;
