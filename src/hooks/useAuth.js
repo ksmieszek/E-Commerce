@@ -21,12 +21,8 @@ const AuthProvider = ({ children }) => {
     const observer = auth.onAuthStateChanged(async (user) => {
       if (user !== null) {
         const findUser = await getDoc(doc(db, `users`, user.uid));
-        if (!findUser.exists()) {
-          SignOut();
-          return;
-        }
         setUid(user.uid);
-        setOrderPersData(findUser.data().orderPersData);
+        setOrderPersData(findUser?.data()?.orderPersData);
       } else {
         setUid(undefined);
         setOrderPersData(unauthUser.orderPersData);
@@ -38,25 +34,27 @@ const AuthProvider = ({ children }) => {
 
   const SignIn = () => {
     provider.setCustomParameters({ prompt: "select_account" });
-    signInWithPopup(auth, provider).then(async (result) => {
-      setLoading(true);
-      const uid = result.user.uid;
-      const findUser = await getDoc(doc(db, `users`, uid));
-      //if user logs in first time
-      if (!findUser.exists()) {
-        await setDoc(doc(db, "users", uid), {
-          cart: [],
-          orderPersData: {},
-          viewedProducts: [],
-          orders: [],
-          email: result.user.email,
-          roles: { admin: false },
-        });
-        window.location = "/";
-      } else {
-        window.location = "/";
-      }
-    });
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        setLoading(true);
+        const uid = result.user.uid;
+        const findUser = await getDoc(doc(db, `users`, uid));
+        //if user logs in first time
+        if (!findUser.exists()) {
+          await setDoc(doc(db, "users", uid), {
+            cart: [],
+            orderPersData: {},
+            viewedProducts: [],
+            orders: [],
+            email: result.user.email,
+            roles: { admin: false },
+          });
+          window.location = "/";
+        } else {
+          window.location = "/";
+        }
+      })
+      .catch(() => {});
   };
 
   const SignOut = () => auth.signOut().then(() => (window.location = "/"));

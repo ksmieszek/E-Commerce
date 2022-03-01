@@ -25,10 +25,12 @@ const Search = () => {
   }, [suggestionsCollection, mainCategoriesCollection]);
 
   const generateSearchCollections = async () => {
-    const catPodcatRelations = (await getDoc(doc(db, "relations", "categoryPodcategory"))).data();
+    const relationsSnapshot = await getDoc(doc(db, "relations", "categoryPodcategory"));
+    if (!relationsSnapshot.exists()) return;
+    const relations = relationsSnapshot.data();
 
     const suggestionsObject = {};
-    for (const [categoryKey, categoryValue] of Object.entries(catPodcatRelations)) {
+    for (const [categoryKey, categoryValue] of Object.entries(relations)) {
       for (const [podcategoryKey, podcategoryValue] of Object.entries(categoryValue.podcategories)) {
         suggestionsObject[podcategoryKey] = {
           name: podcategoryValue,
@@ -38,7 +40,7 @@ const Search = () => {
     }
 
     const mainCategoriesArray = [];
-    for (const [categoryKey, categoryValue] of Object.entries(catPodcatRelations)) {
+    for (const [categoryKey, categoryValue] of Object.entries(relations)) {
       const podcategoriesOfCategory = [];
       for (const key of Object.keys(categoryValue.podcategories)) podcategoriesOfCategory.push(suggestionsObject[key]);
       mainCategoriesArray.push({

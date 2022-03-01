@@ -14,8 +14,9 @@ const MainMenu = () => {
 
   useEffect(() => {
     (async () => {
-      const mainMenu = (await getDoc(doc(db, "menus", "main"))).data();
-      const mainMenuArray = Object.values(mainMenu);
+      const mainMenuSnapshot = await getDoc(doc(db, "menus", "main"));
+      if (!mainMenuSnapshot.exists()) return;
+      const mainMenuArray = Object.values(mainMenuSnapshot.data());
       mainMenuArray
         .sort((a, b) => a.order - b.order)
         .forEach((collection) =>
