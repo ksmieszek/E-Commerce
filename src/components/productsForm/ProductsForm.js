@@ -74,7 +74,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
 
   function getProductsCategories(categoryArray) {
     const storeEntries = {};
-    filteredProductsByPath.map((item) => {
+    filteredProductsByPath.forEach((item) => {
       item[categoryArray].forEach((item) => {
         storeEntries[item] = (storeEntries[item] || 0) + 1;
       });

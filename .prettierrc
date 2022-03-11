@@ -1,0 +1,7 @@
+{
+  "doubleQuote": true,
+  "printWidth": 150,
+  "bracketSameLine": false,
+  "jsxBracketSameLine": false,
+  "tabWidth": 2
+}
