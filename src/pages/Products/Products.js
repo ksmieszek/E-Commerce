@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { useNonInitialEffect } from "hooks/useNonInitialEffect";
 import { useLocation } from "react-router";
 import styles from "./Products.module.scss";
@@ -8,11 +8,15 @@ import ProductsForm from "components/productsForm/ProductsForm";
 import ProductsOverviewOptions from "components/productsOverviewOptions/ProductsOverviewOptions";
 import { db } from "firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { sortActions } from "hooks/useSort";
+
+export const SortContext = createContext();
 
 const Products = () => {
   let location = useLocation();
   const [filteredProductsByPath, setFilteredProductsByPath] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortMethod, setSortMethod] = useState(sortActions.def);
 
   useEffect(() => {
     if (location.pathname === "") return;
@@ -109,10 +113,12 @@ const Products = () => {
     <ContentTemplate>
       <div className={styles.wrapper}>
         <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
-        <div className={styles.wrapper__inner}>
-          <ProductsOverviewOptions />
-          <ProductsList filteredProducts={filteredProducts} />
-        </div>
+        <SortContext.Provider value={{ sortMethod, setSortMethod }}>
+          <div className={styles.wrapper__inner}>
+            <ProductsOverviewOptions />
+            <ProductsList filteredProducts={filteredProducts} />
+          </div>
+        </SortContext.Provider>
       </div>
     </ContentTemplate>
   );

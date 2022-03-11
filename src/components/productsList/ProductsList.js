@@ -3,11 +3,13 @@ import styles from "./ProductsList.module.scss";
 import { useSort } from "hooks/useSort";
 import { Link } from "react-router-dom";
 import LackOfItemsInfo from "components/lackOfItemsInfo/LackOfItemsInfo";
+import { SortContext } from "pages/Products/Products";
+import { useContext } from "react";
 
 const ProductsList = ({ filteredProducts }) => {
   const gridClass = useSelector((state) => state.grid.gridClass);
-  const sortKey = useSelector((state) => state.sort.sortMethodKey);
-  const sortedProducts = useSort(filteredProducts, sortKey);
+  const { sortMethod } = useContext(SortContext);
+  const sortedProducts = useSort(filteredProducts, sortMethod);
 
   return (
     <main>

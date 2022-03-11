@@ -10,15 +10,9 @@ export const unauthUserSlice = createSlice({
   reducers: {
     unauthAddToCart: (state, { payload }) => {
       const { id, size, quantity } = payload;
-      const currentCartState = JSON.parse(JSON.stringify(state.cart));
-      const alreadyInCart = currentCartState.find((item) => item.id === id && item.size === size);
-      if (alreadyInCart) {
-        state.cart = [
-          ...currentCartState.map((item) => {
-            if (item.idCartProduct === alreadyInCart.idCartProduct) item.quantity = parseInt(item.quantity) + parseInt(quantity);
-            return item;
-          }),
-        ];
+      const productIndexInCart = state.cart.findIndex((item) => item.id === id && item.size === size);
+      if (productIndexInCart !== -1) {
+        state.cart[productIndexInCart].quantity += parseInt(quantity);
       } else {
         const idCartProduct = Date.now();
         const newProduct = { idCartProduct, id, size, quantity: parseInt(quantity) };
@@ -26,27 +20,13 @@ export const unauthUserSlice = createSlice({
       }
     },
     unauthIncreaseQuantity: (state, { payload }) => {
-      const currentCartState = JSON.parse(JSON.stringify(state.cart));
-      state.cart = [
-        ...currentCartState.map((item) => {
-          if (item.idCartProduct === payload) item.quantity = parseInt(item.quantity) + 1;
-          return item;
-        }),
-      ];
+      const productIndexInCart = state.cart.findIndex((item) => item.idCartProduct === payload);
+      state.cart[productIndexInCart].quantity += 1;
     },
     unauthDecreaseQuantity: (state, { payload }) => {
-      const currentCartState = JSON.parse(JSON.stringify(state.cart));
-      const product = currentCartState.find((item) => item.idCartProduct === payload);
-      if (product.quantity === 1) {
-        unauthUserSlice.caseReducers.unauthDeleteFromCart(state, { payload });
-      } else {
-        state.cart = [
-          ...currentCartState.map((item) => {
-            if (item.idCartProduct === payload) item.quantity = parseInt(item.quantity) - 1;
-            return item;
-          }),
-        ];
-      }
+      const productIndex = state.cart.findIndex((item) => item.idCartProduct === payload);
+      if (state.cart[productIndex].quantity === 1) unauthUserSlice.caseReducers.unauthDeleteFromCart(state, { payload });
+      else state.cart[productIndex].quantity -= 1;
     },
     unauthDeleteFromCart: (state, { payload }) => {
       state.cart = [...state.cart.filter((item) => item.idCartProduct !== payload)];

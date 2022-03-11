@@ -1,11 +1,18 @@
-import { sortActions } from "store/sortSlice";
 import { useState, useEffect } from "react";
 
-export const useSort = (items, sortKey) => {
+export const sortActions = {
+  def: "Default order",
+  priceAsc: "Price ascending",
+  priceDesc: "Price descending",
+  nameAsc: "Name A-Z",
+  nameDesc: "Name Z-A",
+};
+
+export const useSort = (items, sortKey = sortActions.def) => {
   const [sortedProducts, setSortedProducts] = useState(items || []);
 
   function handleSort() {
-    switch (sortActions[sortKey]) {
+    switch (sortKey) {
       case sortActions.def:
         setSortedProducts(items);
         break;
