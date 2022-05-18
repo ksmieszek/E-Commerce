@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useComponentPresence } from "hooks/useComponentPresence";
+import { useComponentVisible } from "hooks/useComponentVisible";
 import CloseButton from "components/closeButton/CloseButton";
 import styles from "./ProductsForm.module.scss";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -33,7 +33,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   const [productsPodcategories, setProductsPodcategories] = useState([]);
   const [productsColors, setProductsColors] = useState([]);
   const [productsSizes, setProductsSizes] = useState([]);
-  const { isSidebarVisible, makeSidebarInvisible } = useComponentPresence();
+  const { isComponentVisible, makeComponentInvisible } = useComponentVisible();
   const {
     register,
     handleSubmit,
@@ -106,6 +106,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   function updateURL(pickedFilters) {
     if (Object.keys(pickedFilters).length === 0) {
       history.push(`?`);
+      makeComponentInvisible();
       return;
     }
     const searchQueryParams = {};
@@ -118,7 +119,7 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
     }
     searchQuery = `?${searchQuery.slice(1)}`;
     history.push(searchQuery);
-    makeSidebarInvisible();
+    makeComponentInvisible();
   }
 
   const onSubmit = (data) => {
@@ -164,10 +165,10 @@ const ProductsForm = ({ getSearchQueryValues, filteredProductsByPath }) => {
   }
 
   return (
-    <aside className={`${styles.products__form} ${isSidebarVisible ? styles.open : ""}`}>
+    <aside className={`${styles.products__form} ${isComponentVisible ? styles.open : ""}`}>
       <div className={styles.header}>
         <div className={styles.header__title}>Filters</div>
-        <CloseButton onClick={() => makeSidebarInvisible()} hideOnWide />
+        <CloseButton onClick={() => makeComponentInvisible()} hideOnWide />
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.filters}>
         <div>

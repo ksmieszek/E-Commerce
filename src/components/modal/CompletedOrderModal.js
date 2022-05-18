@@ -4,11 +4,11 @@ import { ReactComponent as Checkmark } from "assets/icons/checkmark.svg";
 import { useAuth } from "hooks/useAuth";
 import Hyperlink from "components/button/Hyperlink";
 
-const CompletedOrderModal = ({ isModalOpen, setIsModalOpen }) => {
+const CompletedOrderModal = () => {
   const { uid } = useAuth();
 
   return (
-    <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+    <Modal>
       <div className={styles.modal__content}>
         <div className={styles.icon__wrapper}>
           <Checkmark className={styles.icon} />

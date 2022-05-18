@@ -14,6 +14,7 @@ import RecentlyViewed from "components/recentlyViewed/RecentlyViewed";
 import Button from "components/button/Button";
 import AddedToCartModal from "components/modal/AddedToCartModal";
 import { ReactComponent as Arrow } from "assets/icons/arrow.svg";
+import ComponentVisibleProvider, { useComponentVisible } from "hooks/useComponentVisible";
 
 const schema = yup.object().shape({
   id: yup.string().trim().required(),
@@ -21,13 +22,19 @@ const schema = yup.object().shape({
   quantity: yup.number().positive().integer().required().typeError("Quantity must be a digit"),
 });
 
+const ProductWrapper = (props) => (
+  <ComponentVisibleProvider>
+    <Product {...props} />
+  </ComponentVisibleProvider>
+);
+
 const Product = ({ match }) => {
   const { addToCart } = useCart();
   const { id: UrlProductId } = match.params;
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [sliderImages, setSliderImages] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isComponentVisible, makeComponentVisible } = useComponentVisible();
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(true);
   let history = useHistory();
 
@@ -66,7 +73,7 @@ const Product = ({ match }) => {
 
   const onSubmit = (data) => {
     addToCart(data);
-    setIsModalOpen(true);
+    makeComponentVisible();
   };
 
   useEffect(() => {
@@ -120,9 +127,9 @@ const Product = ({ match }) => {
           <RecentlyViewed product={product} setHideRecentlyViewed={setHideRecentlyViewed} />
         </section>
       </div>
-      {isModalOpen && <AddedToCartModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}></AddedToCartModal>}
+      {isComponentVisible && <AddedToCartModal />}
     </ContentTemplate>
   );
 };
 
-export default Product;
+export default ProductWrapper;

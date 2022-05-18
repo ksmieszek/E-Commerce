@@ -11,8 +11,6 @@ import Product from "pages/Product/Product";
 import Order from "pages/Order/Order";
 import Orders from "pages/Orders/Orders";
 import PreviousOrder from "pages/PreviousOrder/PreviousOrder";
-import OverlayProvider from "hooks/useOverlay";
-import ComponentPresenceProvider from "hooks/useComponentPresence";
 import CartProvider from "hooks/useCart";
 import AuthProvider from "hooks/useAuth";
 import MainTemplate from "templates/mainTemplate/MainTemplate";
@@ -22,23 +20,19 @@ const Root = () => (
     <PersistGate loading={null} persistor={persistor}>
       <AuthProvider>
         <CartProvider>
-          <OverlayProvider>
-            <ComponentPresenceProvider>
-              <Router>
-                <MainTemplate>
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/products/:query" component={Products} />
-                    <Route path="/product/:id" component={Product} />
-                    <Route path="/orders" component={Orders} />
-                    <Route exact path="/order" component={Order} />
-                    <Route path="/order/:id" component={PreviousOrder} />
-                    <Route component={NotFound} />
-                  </Switch>
-                </MainTemplate>
-              </Router>
-            </ComponentPresenceProvider>
-          </OverlayProvider>
+          <Router>
+            <MainTemplate>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/products/:query" component={Products} />
+                <Route path="/product/:id" component={Product} />
+                <Route path="/orders" component={Orders} />
+                <Route exact path="/order" component={Order} />
+                <Route path="/order/:id" component={PreviousOrder} />
+                <Route component={NotFound} />
+              </Switch>
+            </MainTemplate>
+          </Router>
         </CartProvider>
       </AuthProvider>
     </PersistGate>

@@ -9,6 +9,7 @@ import ProductsOverviewOptions from "components/productsOverviewOptions/Products
 import { db } from "firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { sortActions } from "hooks/useSort";
+import ComponentVisibleProvider from "hooks/useComponentVisible";
 
 export const SortContext = createContext();
 
@@ -112,13 +113,15 @@ const Products = () => {
   return (
     <ContentTemplate>
       <div className={styles.wrapper}>
-        <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
-        <SortContext.Provider value={{ sortMethod, setSortMethod }}>
+        <ComponentVisibleProvider>
+          <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
           <div className={styles.wrapper__inner}>
-            <ProductsOverviewOptions />
-            <ProductsList filteredProducts={filteredProducts} />
+            <SortContext.Provider value={{ sortMethod, setSortMethod }}>
+              <ProductsOverviewOptions />
+              <ProductsList filteredProducts={filteredProducts} />
+            </SortContext.Provider>
           </div>
-        </SortContext.Provider>
+        </ComponentVisibleProvider>
       </div>
     </ContentTemplate>
   );

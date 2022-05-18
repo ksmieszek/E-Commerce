@@ -1,10 +1,10 @@
-import { useOverlay } from "hooks/useOverlay";
+import { useComponentVisible } from "hooks/useComponentVisible";
 import styles from "./Overlay.module.scss";
 
 const Overlay = () => {
-  const { isOverlayVisible, makeOverlayInvisible } = useOverlay();
+  const { isComponentVisible, makeComponentInvisible } = useComponentVisible();
 
-  if (isOverlayVisible) {
+  if (isComponentVisible) {
     document.body.style.maxHeight = "100%";
     document.body.style.overflowY = "hidden";
   } else {
@@ -12,7 +12,7 @@ const Overlay = () => {
     document.body.style.overflowY = "unset";
   }
 
-  return <div className={`${styles.overlay} ${isOverlayVisible ? styles.show : ""}`} onClick={() => makeOverlayInvisible()}></div>;
+  return <div className={`${styles.overlay} ${isComponentVisible ? styles.show : ""}`} onClick={() => makeComponentInvisible()}></div>;
 };
 
 export default Overlay;

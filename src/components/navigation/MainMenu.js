@@ -4,12 +4,18 @@ import { db } from "firebase";
 import { doc, getDoc } from "firebase/firestore";
 import MobileElements from "./MobileElements";
 import styles from "./Navigation.module.scss";
-import { useComponentPresence } from "hooks/useComponentPresence";
+import ComponentVisibleProvider, { useComponentVisible } from "hooks/useComponentVisible";
+
+const MainMenuWrapper = () => (
+  <ComponentVisibleProvider>
+    <MainMenu />
+  </ComponentVisibleProvider>
+);
 
 const MainMenu = () => {
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
-  const { isNavVisible, makeNavVisible, makeNavInvisible } = useComponentPresence();
+  const { isComponentVisible, makeComponentVisible, makeComponentInvisible } = useComponentVisible();
   const [menu, setMenu] = useState([]);
 
   useEffect(() => {
@@ -34,12 +40,12 @@ const MainMenu = () => {
 
   function handleClick(e) {
     e.stopPropagation();
-    if (e.target === hamburgerRef.current) makeNavVisible();
-    if (e.target.dataset.headerClose) makeNavInvisible();
+    if (e.target === hamburgerRef.current) makeComponentVisible();
+    if (e.target.dataset.headerClose) makeComponentInvisible();
     if (e.target.classList.contains(styles.header__back)) {
       const parentWrapper = e.target.closest(`.${styles.open}`);
       if (parentWrapper === menuRef.current) {
-        makeNavInvisible();
+        makeComponentInvisible();
         return;
       }
       parentWrapper.classList.remove(styles.open);
@@ -49,7 +55,7 @@ const MainMenu = () => {
   }
 
   return (
-    <div className={`${styles.mainMenu} ${isNavVisible ? styles.open : ``}`} ref={menuRef}>
+    <div className={`${styles.mainMenu} ${isComponentVisible ? styles.open : ``}`} ref={menuRef}>
       <button className={styles.mainMenu__hamburger} ref={hamburgerRef}>
         <div></div>
       </button>
@@ -99,4 +105,4 @@ const MainMenu = () => {
   );
 };
 
-export default MainMenu;
+export default MainMenuWrapper;

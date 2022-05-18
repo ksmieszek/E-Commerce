@@ -13,6 +13,13 @@ import ContentTemplate from "templates/contentTemplate/ContentTemplate";
 import LackOfItemsInfo from "components/lackOfItemsInfo/LackOfItemsInfo";
 import CompletedOrderModal from "components/modal/CompletedOrderModal";
 import { useForm } from "react-hook-form";
+import ComponentVisibleProvider, { useComponentVisible } from "hooks/useComponentVisible";
+
+const OrderWrapper = () => (
+  <ComponentVisibleProvider>
+    <Order />
+  </ComponentVisibleProvider>
+);
 
 const Order = () => {
   const [step, setStep] = useState(1);
@@ -23,7 +30,7 @@ const Order = () => {
   const [total, setTotal] = useState(0);
   const [cartWithProdInfo, setCartWithProdInfo] = useState([]);
   const [cartValue, setCartValue] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isComponentVisible, makeComponentVisible } = useComponentVisible();
   const [orderCompleted, setOrderCompleted] = useState(false);
 
   const {
@@ -89,7 +96,7 @@ const Order = () => {
 
     // reset cart
     resetCart();
-    setIsModalOpen(true);
+    makeComponentVisible();
     setOrderCompleted(true);
   };
 
@@ -102,8 +109,8 @@ const Order = () => {
     <ContentTemplate>
       <main className={styles.wrapper}>
         {orderCompleted ? (
-          isModalOpen ? (
-            <CompletedOrderModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}></CompletedOrderModal>
+          isComponentVisible ? (
+            <CompletedOrderModal />
           ) : (
             <>{redirectFn()}</>
           )
@@ -129,4 +136,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default OrderWrapper;
