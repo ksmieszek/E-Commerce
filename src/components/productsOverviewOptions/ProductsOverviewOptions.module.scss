@@ -35,7 +35,7 @@
     }
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: $screen-width-l-px) {
     .filters__opener {
       display: none;
     }

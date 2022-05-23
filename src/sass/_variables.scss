@@ -1,2 +1,16 @@
 $blue-color: #147efb;
-$light-gray: #eaeaea;
+$gray-color: #eaeaea;
+$light-gray-color: #f7f7f7;
+$white-color: #fff;
+
+$screen-width-xs: 400;
+$screen-width-s: 768;
+$screen-width-m: 1024;
+$screen-width-l: 1440;
+$screen-width-xl: 1900;
+
+$screen-width-xs-px: $screen-width-xs+"px";
+$screen-width-s-px: $screen-width-s+"px";
+$screen-width-m-px: $screen-width-m+"px";
+$screen-width-l-px: $screen-width-l+"px";
+$screen-width-xl-px: $screen-width-xl+"px";

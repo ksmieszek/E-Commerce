@@ -1,0 +1,9 @@
+@use "sass/variables" as *;
+
+:export {
+    screen-width-xs: $screen-width-xs;
+    screen-width-s: $screen-width-s;
+    screen-width-m: $screen-width-m;
+    screen-width-l: $screen-width-l;
+    screen-width-xl: $screen-width-xl;
+}

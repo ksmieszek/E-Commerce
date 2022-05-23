@@ -16,7 +16,7 @@
 
   &::-webkit-scrollbar-track {
     border-radius: 25px;
-    background: $light-gray;
+    background: $gray-color;
   }
 
   .slide {
@@ -58,7 +58,7 @@
     }
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     padding-bottom: 20px;
 
     .slide {

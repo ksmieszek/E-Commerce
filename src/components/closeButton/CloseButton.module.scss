@@ -29,7 +29,7 @@
     transform: translate(-50%) rotate(-45deg);
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: $screen-width-l-px) {
     &.hide {
       display: none;
     }

@@ -33,7 +33,7 @@
   }
 
   .filter {
-    border-top: 1px solid $light-gray;
+    border-top: 1px solid $gray-color;
 
     &__name {
       position: relative;
@@ -43,7 +43,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: white;
+      background-color: $white-color;
       font-size: 1.4rem;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -156,7 +156,7 @@
     color: red;
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: $screen-width-l-px) {
     position: static;
     margin-right: 50px;
     width: auto;

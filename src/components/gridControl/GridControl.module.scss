@@ -54,7 +54,7 @@
     padding: 5px;
     margin: 5px;
     border: none;
-    background-color: white;
+    background-color: $white-color;
     width: 35px;
     height: 35px;
     cursor: pointer;
@@ -89,7 +89,7 @@
     }
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     .grid__button {
       &.small,
       &.big {

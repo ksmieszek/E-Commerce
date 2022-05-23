@@ -1,3 +1,5 @@
+@use "sass/abstracts" as *;
+
 @keyframes FadeInAnimation {
   0% {
     opacity: 0;
@@ -20,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: $white-color;
   z-index: 999;
   animation-delay: 0s;
   animation-duration: 0.3s;
@@ -28,7 +30,7 @@
   animation-timing-function: ease;
   animation-name: FadeInAnimation;
 
-  @media (min-width: 1440px) {
+  @media (min-width: $screen-width-l-px) {
     top: 20%;
     transform: translate(-50%, 0);
   }
@@ -61,7 +63,7 @@
 .icon {
   width: 48px;
   height: 48px;
-  fill: #fff;
+  fill: $white-color;
 }
 
 .subtitle {

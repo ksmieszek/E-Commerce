@@ -5,9 +5,10 @@ import { doc, getDoc } from "firebase/firestore";
 import MobileElements from "./MobileElements";
 import styles from "./Navigation.module.scss";
 import ComponentVisibleProvider, { useComponentVisible } from "hooks/useComponentVisible";
+import scssExports from "sass/_exports.module.scss";
 
 const MainMenuWrapper = () => (
-  <ComponentVisibleProvider>
+  <ComponentVisibleProvider hideOnWidth={scssExports["screen-width-s"]}>
     <MainMenu />
   </ComponentVisibleProvider>
 );

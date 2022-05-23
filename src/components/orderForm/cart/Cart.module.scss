@@ -15,7 +15,7 @@
   .product {
     margin-top: 25px;
     padding-bottom: 25px;
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $gray-color;
     display: flex;
 
     &:first-child {
@@ -70,7 +70,7 @@
           border: none;
           width: 30px;
           height: 30px;
-          background-color: white;
+          background-color: $white-color;
           cursor: pointer;
         }
       }
@@ -97,10 +97,10 @@
         align-items: center;
 
         .product__quantity {
-          border: 1px solid $light-gray;
+          border: 1px solid $gray-color;
           width: 40px;
           height: 35px;
-          background: white;
+          background: $white-color;
           background-repeat: no-repeat;
           background-position: center center;
           background-size: 40%;
@@ -121,7 +121,7 @@
           }
 
           &--value {
-            border: 1px solid $light-gray;
+            border: 1px solid $gray-color;
             width: 40px;
             height: 35px;
             display: flex;

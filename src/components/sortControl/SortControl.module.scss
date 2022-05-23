@@ -6,13 +6,13 @@
   .list__opener {
     padding: 5px 10px;
     outline: none;
-    border: 1px solid $light-gray;
+    border: 1px solid $gray-color;
     border-radius: 5px;
     width: 100%;
     font-size: 1.6rem;
     text-align: left;
     appearance: none;
-    background: white;
+    background: $white-color;
     cursor: pointer;
 
     &:focus {
@@ -39,7 +39,7 @@
     border-radius: 5px;
     width: 190px;
     display: none;
-    background: white;
+    background: $white-color;
     overflow: hidden;
     z-index: 1;
 
@@ -51,10 +51,10 @@
   .item {
     padding: 5px 10px;
     border: none;
-    border-left: 1px solid $light-gray;
-    border-right: 1px solid $light-gray;
+    border-left: 1px solid $gray-color;
+    border-right: 1px solid $gray-color;
     width: 100%;
-    background-color: white;
+    background-color: $white-color;
     font-size: 1.6rem;
     text-align: left;
     cursor: pointer;
@@ -63,7 +63,7 @@
       border-left: 1px solid $blue-color;
       border-right: 1px solid $blue-color;
       background: $blue-color;
-      color: white;
+      color: $white-color;
 
       &:hover {
         background: $blue-color;
@@ -71,7 +71,7 @@
     }
 
     &:first-child {
-      border-top: 1px solid $light-gray;
+      border-top: 1px solid $gray-color;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       &.selected {
@@ -79,7 +79,7 @@
       }
     }
     &:last-child {
-      border-bottom: 1px solid $light-gray;
+      border-bottom: 1px solid $gray-color;
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
       &.selected {
@@ -88,11 +88,11 @@
     }
 
     &:hover {
-      background: $light-gray;
+      background: $gray-color;
     }
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     width: 190px;
 
     .list__opener {

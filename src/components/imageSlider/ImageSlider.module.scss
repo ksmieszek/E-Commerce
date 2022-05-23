@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     margin-right: 100px;
     justify-content: flex-end;
   }
@@ -82,22 +82,17 @@
       display: block;
       object-fit: cover;
 
-      @media only screen and (min-width: 380px) {
-        width: 250px;
-        height: 370px;
-      }
-
-      @media only screen and (min-width: 400px) {
+      @media only screen and (min-width: $screen-width-xs-px) {
         width: 270px;
         height: 400px;
       }
 
-      @media only screen and (min-width: 1024px) {
+      @media only screen and (min-width: $screen-width-s-px) {
         width: 290px;
         height: 430px;
       }
 
-      @media only screen and (min-width: 1024px) {
+      @media only screen and (min-width: $screen-width-m-px) {
         width: 440px;
         height: 670px;
       }

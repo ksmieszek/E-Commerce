@@ -1,8 +1,10 @@
 import { useComponentVisible } from "hooks/useComponentVisible";
 import styles from "./Overlay.module.scss";
+import { useViewportWidth } from "hooks/useViewportWidth";
 
-const Overlay = () => {
+const Overlay = ({ hideOnWidth }) => {
   const { isComponentVisible, makeComponentInvisible } = useComponentVisible();
+  const viewportWidth = useViewportWidth();
 
   if (isComponentVisible) {
     document.body.style.maxHeight = "100%";
@@ -12,7 +14,13 @@ const Overlay = () => {
     document.body.style.overflowY = "unset";
   }
 
-  return <div className={`${styles.overlay} ${isComponentVisible ? styles.show : ""}`} onClick={() => makeComponentInvisible()}></div>;
+  return (
+    <>
+      {(hideOnWidth === undefined || viewportWidth <= hideOnWidth) && (
+        <div className={`${styles.overlay} ${isComponentVisible ? styles.show : ""}`} onClick={() => makeComponentInvisible()}></div>
+      )}
+    </>
+  );
 };
 
 export default Overlay;

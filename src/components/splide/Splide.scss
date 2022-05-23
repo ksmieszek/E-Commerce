@@ -1,3 +1,5 @@
+@use "sass/abstracts" as *;
+
 @keyframes SlideOutAnimation {
   0% {
     transform: translateX(0);
@@ -12,7 +14,7 @@
 .splide {
   height: calc(100vh - 87px);
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     height: calc(100vh - 101px);
   }
 }
@@ -55,10 +57,10 @@
   top: 50%;
   left: 10%;
   transform: translateY(-70%);
-  color: white;
+  color: $white-color;
   text-transform: none;
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     transform: translateY(-50%);
   }
 
@@ -76,11 +78,11 @@
     line-height: 1.1;
     transition: all 0.8s 0.6s ease;
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: $screen-width-s-px) {
       font-size: 5rem;
     }
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: $screen-width-m-px) {
       font-size: 7rem;
     }
   }
@@ -92,11 +94,11 @@
     line-height: 1.2;
     transition: all 0.8s 0.8s ease;
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: $screen-width-s-px) {
       font-size: 2.2rem;
     }
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: $screen-width-m-px) {
       font-size: 2.5rem;
     }
   }

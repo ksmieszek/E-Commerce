@@ -69,12 +69,12 @@
     }
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: $screen-width-l-px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
   }

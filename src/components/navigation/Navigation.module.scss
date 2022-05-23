@@ -6,7 +6,7 @@
 }
 
 .navbar {
-  background-color: #fff;
+  background-color: $white-color;
   transition: transform 0.3s linear;
 
   &.showNavbar {
@@ -20,7 +20,7 @@
       padding-bottom: 0;
       display: flex;
       justify-content: space-between;
-      background-color: #fff;
+      background-color: $white-color;
       z-index: 999;
     }
 
@@ -81,7 +81,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #f7f7f7;
+        background-color: $light-gray-color;
       }
 
       &.user {
@@ -119,7 +119,7 @@
           justify-content: center;
           font-size: 1.1rem;
           background: $blue-color;
-          color: white;
+          color: $white-color;
         }
       }
     }
@@ -134,7 +134,7 @@
       justify-content: center;
       align-items: center;
       border: 1px solid #ccc;
-      background: white;
+      background: $white-color;
       box-shadow: 0 0 8px -2px #555;
       z-index: 999;
       cursor: default;
@@ -170,7 +170,7 @@
       padding: 6px 10px;
       padding-right: 50px;
       // border: 1px solid #6b6b6b;
-      border: 1px solid $light-gray;
+      border: 1px solid $gray-color;
       border-radius: 50px;
       outline: none;
       font-size: 1.4rem;
@@ -215,7 +215,7 @@
       align-items: center;
       font-size: 1.4rem;
       box-shadow: 0 2px 7px -2px #555;
-      background-color: #fff;
+      background-color: $white-color;
       visibility: hidden;
       opacity: 0;
       transform: scale3d(1, 0, 1);
@@ -241,7 +241,7 @@
       }
 
       li {
-        border-bottom: 1px solid $light-gray;
+        border-bottom: 1px solid $gray-color;
 
         &.shortcut {
           margin-left: 5px;
@@ -257,7 +257,7 @@
         display: block;
 
         &:hover {
-          background-color: #f7f7f7;
+          background-color: $light-gray-color;
         }
 
         .bold {
@@ -294,7 +294,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      background: white;
+      background: $white-color;
       cursor: pointer;
 
       div,
@@ -329,7 +329,7 @@
 
       .header {
         padding: 16px 18px;
-        border-bottom: 1px solid $light-gray;
+        border-bottom: 1px solid $gray-color;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -424,7 +424,7 @@
     }
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     &.showNavbar {
       height: 101px;
 
@@ -530,7 +530,7 @@
         background-image: none;
 
         &:hover {
-          background-color: #f7f7f7;
+          background-color: $light-gray-color;
 
           .categories {
             display: grid;
@@ -552,7 +552,7 @@
       width: 100vw;
       max-width: 100vw;
       display: none;
-      background-color: #f7f7f7;
+      background-color: $light-gray-color;
       box-shadow: 0px 5px 15px -7px #000;
       z-index: -1;
       cursor: default;
@@ -612,7 +612,7 @@
     }
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     .navbar__inner {
       grid-template-columns: 1fr 0px 630px 1fr;
     }
@@ -622,7 +622,7 @@
     }
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: $screen-width-l-px) {
     .submenus__item {
       a {
         pointer-events: all;
@@ -638,7 +638,7 @@
     }
   }
 
-  @media only screen and (min-width: 1900px) {
+  @media only screen and (min-width: $screen-width-xl-px) {
     .categories__list {
       grid-template-columns: repeat(5, auto);
     }

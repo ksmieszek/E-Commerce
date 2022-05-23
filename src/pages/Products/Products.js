@@ -10,6 +10,7 @@ import { db } from "firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { sortActions } from "hooks/useSort";
 import ComponentVisibleProvider from "hooks/useComponentVisible";
+import scssExports from "sass/_exports.module.scss";
 
 export const SortContext = createContext();
 
@@ -113,7 +114,7 @@ const Products = () => {
   return (
     <ContentTemplate>
       <div className={styles.wrapper}>
-        <ComponentVisibleProvider>
+        <ComponentVisibleProvider hideOnWidth={scssExports["screen-width-l"]}>
           <ProductsForm getSearchQueryValues={() => getSearchQueryValues()} filteredProductsByPath={filteredProductsByPath} />
           <div className={styles.wrapper__inner}>
             <SortContext.Provider value={{ sortMethod, setSortMethod }}>

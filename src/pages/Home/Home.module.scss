@@ -10,10 +10,10 @@
 .hero {
   width: 100%;
   height: calc(100vh - 92px);
-  background-color: #fff;
+  background-color: $white-color;
   overflow: hidden;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     height: calc(100vh - 101px);
   }
 }
@@ -26,12 +26,12 @@
   grid-template-columns: 1fr;
   row-gap: 10px;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: $screen-width-s-px) {
     grid-template-rows: repeat(5, 400px);
     row-gap: 20px;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     grid-template-rows: repeat(2, 400px);
     grid-template-columns: repeat(6, 1fr);
     row-gap: 10px;
@@ -72,7 +72,7 @@
   }
 
   &:hover .title {
-    color: white;
+    color: $white-color;
 
     &::before {
       transform: translateY(0);
@@ -97,14 +97,14 @@
   font-size: 1.6rem;
   font-weight: 500;
   color: black;
-  background-color: white;
+  background-color: $white-color;
   overflow: hidden;
   transition: color 0.4s ease;
   cursor: pointer;
   user-select: none;
 
   &:hover {
-    color: white;
+    color: $white-color;
 
     &::before {
       transform: translateY(0);
@@ -124,7 +124,7 @@
     transition: all 0.2s ease;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     font-size: 1.8rem;
   }
 }
@@ -159,16 +159,16 @@
     letter-spacing: 5px;
     text-shadow: 0px 0px 15px #000;
     text-align: center;
-    color: white;
+    color: $white-color;
     user-select: none;
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: $screen-width-m-px) {
       margin-top: 120px;
       font-size: 8rem;
     }
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: $screen-width-m-px) {
     height: 400px;
   }
 }

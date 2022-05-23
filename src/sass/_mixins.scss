@@ -1,3 +1,5 @@
+@use "sass/variables" as *;
+
 @mixin sidebar-card {
   position: fixed;
   top: 0;
@@ -5,6 +7,6 @@
   transform: translateX(0);
   width: 100%;
   max-width: 375px;
-  background-color: #fff;
+  background-color: $white-color;
   transition: all 0.1s linear;
 }
